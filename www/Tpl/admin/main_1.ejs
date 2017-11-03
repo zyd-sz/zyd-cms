@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+	<title><%=_variable.设置.名称%> - 后台系统</title>
+	<link rel="stylesheet" type="text/css" href="../../public/admin/css/bootstrap.min.css"/>
+	
+
+	<!--morris：绘制折线图-->
+	
+	<!--wysihtml5：富文本-->
+
+	<link rel="stylesheet" href="../../public/admin/css/AdminLTE.min.css">
+
+
+
+	<!--<link rel="stylesheet" type="text/css" href="../../public/admin/css/bootstrap3-wysihtml5.min.css"/>-->
+	<!--daterangepicker：日历-->
+	<!--<link rel="stylesheet" type="text/css" href="../../public/admin/css/daterangepicker.css"/>-->
+	<!--<link rel="stylesheet" type="text/css" href="../../public/admin/css/datepicker3.css"/>-->
+
+	<style>
+		.contentWrap{
+			z-index: 10;
+			width: 232px;
+			height:calc(100% - 0px) ;
+			height: -moz-calc(100% - 0px);
+			height: -webkit-calc(100% - 0px);
+			overflow: hidden;
+			position: fixed;
+			float: left;
+			top: 0;
+		}
+		.contentMain{
+			overflow-y: scroll;
+			overflow-x: hidden;
+			width: 247px;
+			padding-bottom:100px ;
+			height: 100%;
+		}
+		.contentLeft1{
+			width: 230px;
+		}
+		.contentLeft2{
+			width: 50px;
+		}
+	
+	</style>
+	
+</head>
+<body id="bd" class="skin-blue sidebar-mini" style="overflow:hidden;">
+<!--<div class="wrapper">-->
+	<header class="main-header">
+
+		<!-- Logo -->
+		<a href="/Tpl/admin/main.xhtml" class="logo">
+			<!-- mini logo for sidebar mini 50x50 pixels -->
+			物联网平台
+			<!-- logo for regular state and mobile devices -->
+		</a>
+
+		<!-- Header Navbar: style can be found in header.less -->
+		<nav class="navbar navbar-static-top">
+			<!-- Sidebar toggle button-->
+			<a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button" onclick="togo();">
+				<span class="sr-only">Toggle navigation</span>
+			</a>
+			<!-- Navbar Right Menu -->
+			<div class="navbar-custom-menu">
+				<ul class="nav navbar-nav">
+					<li>
+						<a href="/Tpl/admin/del_admin.xhtml">退出</a>
+					</li>
+					<li class="dropdown user user-menu">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+							<img src="../../public/admin/img/user3-128x128.jpg" class="user-image" alt="User Image">
+							<span class="hidden-xs"><%=session.user_name%></span>
+						</a>
+						<ul class="dropdown-menu">
+							<!-- User image -->
+							<li class="user-header">
+								<img src="../../public/admin/img/user3-128x128.jpg" class="img-circle" alt="User Image">
+								<p>
+									<%=session.user_name%>
+									<small>欢迎登陆</small>
+								</p>
+							</li>
+							<!-- Menu Footer-->
+							<li class="user-footer">
+								<div class="pull-left">
+									<a href="#" class="btn btn-default btn-flat">平台</a>
+								</div>
+								<div class="pull-right">
+									<a href="/Tpl/admin/del_admin.xhtml" class="btn btn-default btn-flat">退出</a>
+								</div>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a href="#" data-toggle="control-sidebar"><i class=""></i></a>
+					</li>
+					<li>
+						<a href="#" data-toggle="control-sidebar"><i class=""></i></a>
+					</li>
+					<li>
+						<a href="#" data-toggle="control-sidebar"><i class=""></i></a>
+					</li>
+				</ul>
+			</div>
+
+		</nav>
+	</header>
+    <div class="contentLeft1" id="contentLeft" style="height: calc(100vh - 55px);float: left">
+		<div id="contentWrap" class="contentWrap" style="">
+		<aside class="main-sidebar contentMain" id="contentMain"style="">
+		<!-- sidebar: style can be found in sidebar.less -->
+		<section class="sidebar">
+			<!-- Sidebar user panel -->
+			<div class="user-panel">
+				<div class="pull-left image">
+					<img src="../../public/admin/img/user3-128x128.jpg" class="img-circle" alt="User Image">
+				</div>
+				<div class="pull-left info">
+					<p><%=session.user_name%></p>
+					<a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
+				</div>
+			</div>
+			<!-- search form -->
+			<!--<form action="#" method="get" class="sidebar-form">
+				<div class="input-group">
+					<input type="text" name="q" class="form-control" placeholder="Search...">
+              <span class="input-group-btn">
+                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                </button>
+              </span>
+				</div>
+			</form>-->
+			<!-- /.search form -->
+			<!-- sidebar menu: : style can be found in sidebar.less -->
+		
+		</section>
+		<!-- /.sidebar -->
+		</aside>
+	</div>
+	</div>
+
+	
+	<div class="control-sidebar-bg"></div>
+
+
+
+
+<!--</div>-->
+<script src="../../public/admin/js/jquery-1.10.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../public/admin/js/bootstrap.min.js"></script>
+
+</body>
+</html>

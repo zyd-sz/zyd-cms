@@ -1,0 +1,34 @@
+       .zitia {font-size: 16px;color: #222222;font-weight: bolder;}
+	   .zitib {font-size: 14px;color: #222222;font-weight: bolder;}
+	   .zitic{font-size: 14px;color: #8D8D8D;font-weight: bolder;}
+	   .zitid{font-size:14px;color:#449BE6;font-weight: bolder;}
+	   .zitif{font-size: 14px;color: #888888;font-weight: bolder;margin-top: 20px;}
+	   .mass_delete{cursor: pointer;}
+	   .xqfgn{padding-top: 20px;padding-bottom: 30px;padding-left: 30px;margin-bottom: 0px;}
+	   .nav>li>a{padding: 0px;}
+	   .nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {border: none; }
+       .nav-tabs>li.active{border-bottom: 3px solid #363A4E;}
+       .xgn{padding-left:30px;padding-bottom: 12px;padding-right:15px;}
+       .yfs{padding-left:15px;padding-bottom: 12px;padding-right:18px;}
+       .qunf{padding-top:30px;padding-left:30px;padding-bottom:10px;}
+       .xiala{margin-left:30px;margin-bottom:60px;}
+       /*.kuang{border:2px dashed #8D8D8D;width:424px;height:228px;margin-left:30px;margin-bottom: 86px;}*/
+       .kuang img{margin-top:86px;margin-left:194px;}
+       .xiaox{text-align: center;}.qun-fa{margin-left:30px!important;width:108px;height:32px;color:#FFFFFF;margin-top:20px;
+              font-size:16px;font-weight: bolder;background-color:#363A4E;border-radius:2px;}
+        .sanjiao{margin-top:8px;}
+        .xiaoxi{padding-bottom:30px;border-bottom: 1px solid red;}
+        .leix{padding-left:0;}
+        .fss{padding-right:0;}
+        .xiaox-b{padding-left:10px;padding-top:30px;padding-bottom:30px;padding-right:30px;border-bottom: 1px solid #E7E7E7;}
+        .erp{padding-top:20px;}
+        .tupian{margin-right:20px;margin-left:15px;}
+        .erp ul li{padding-bottom:20px;}
+        .yudu{padding-right: 70px;}
+        .b-right{padding-right:30px;}
+        .mass_menu{width: 116px;height: 32px;font-weight: 600;}
+		#j_hover{background-color: #ededed;}
+		.btnbox{width: 70px;height: 40px;border: 1px solid black; border-radius: 5px;position: absolute;right: 10px;line-height: 40px;padding-right: 10px;}
+		.btnbox .check{margin-top: -1px;width: 40px;height: 40px;display: block;font-size: 14px;vertical-align: top;line-height: 40px;position: absolute;background: url(../images/check.png) center center no-repeat;background-size: 50%;}
+		.btnbox .delete{margin-top: -1px;width: 40px;height: 40px;display: block;font-size: 14px;vertical-align: top;line-height: 40px;position: absolute;background: url(../images/delete.png) center center no-repeat;background-size: 50%;}
+		.newbtn{width: 100%;height: 100%;text-decoration: none;display: block;position: absolute;right: 10px;}

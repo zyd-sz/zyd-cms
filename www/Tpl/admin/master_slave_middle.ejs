@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<link href="../../public/admin/css/style.css" rel="stylesheet" />
+<script src="../../public/admin/js/jquery.js" type="text/javascript"></script>
+<style>
+#bottom{ position:absolute; bottom:0px;width:100%;float:left;}
+.img-button{ margin:0 0 -1px 5px; height:24px; border-bottom:#abb7cf solid 1px;}
+.img-button samp{ float:left; border:none; background:transparent; color:#4b4c47; margin:0; cursor:pointer; padding:7px 0 0 0;padding:9px 0 0 0\9;*padding:7px 0 0 0;}
+#hr{ width:100%; float:left; border-bottom:#abb7cf solid 1px;}
+</style>
+</head>
+
+<body>
+<div id="bottom">
+<div id="hr">
+	<% r.forEach(function(name){ %>
+	        <div class="img-button" onclick="ms_html('<%=name.func%>',this,'<%=name.n1%>','<%=name.n2%>')">
+	          <p>
+	          <samp><%=name.名称%></samp>
+	          </p>
+	        </div>
+	<% })%>
+</div>
+</div>
+
+<script>
+var html_id="";
+var html_name="";
+var html_主 = "";
+var html_从 = "";
+var _seach = "{}";
+function getid(arr){
+    _seach = encodeURIComponent('{"'+html_从+'":"'+arr[html_主]+'"}');
+	$(html_name).click();
+}
+
+function ms_html(func,name,从,主){
+	html_name=name;
+	html_主 = 主;
+	html_从 = 从;
+	$(".img-button").css({"border-bottom":"#abb7cf solid 1px"});
+	$(".img-button").find("samp").css({"color":"#4b4c47"});
+	$(name).find("samp").css({"color":"red"});
+	$(name).css({"border-bottom":"#fff solid 1px"});
+	parent.document.getElementById("ms_bottomFrame").src='/Tpl/adminfunc/'+func+'.xhtml?a=1&sumnum=5&_t=seach&_seach='+_seach; 
+}
+$(".img-button:eq(0)").click();
+</script>
+</body>
+</html>

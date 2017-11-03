@@ -1,0 +1,26 @@
+<% include ../admin/add_top.ejs %>
+<tr id="_t_id">
+	<th width="150">id</th>
+	<td><input type="text" ReadOnly="true" class="textinput" id="id" name="id" value="<% if(r.id){%><%=r.id%><% }else{ %><% }%>" style="width:200px" /></td>
+</tr>
+<tr id="_t_姓名">
+	<th>姓名</th>
+	<td><input type="text" ReadOnly="true" class="textinput" id="姓名" name="姓名" value="<% if(r.姓名){%><%=r.姓名%><% }else{ %><% }%>" style="width:200px" /></td>
+</tr>
+<tr id="_t_登录名">
+	<th>登录名</th>
+	<td><input type="text" ReadOnly="true" class="textinput" id="登录名" name="登录名" value="<% if(r.登录名){%><%=r.登录名%><% }else{ %><% }%>" style="width:200px" /></td>
+</tr>
+<tr id="_t_原密码">
+	<th>原密码</th>
+	<td><input type="password" class="textinput requireinput " id="原密码" name="原密码" value="<% if(r.原密码){%><%=r.原密码%><% }else{ %><% }%>" style="width:200px" /></td>
+</tr>
+<tr id="_t_新密码">
+	<th>新密码</th>
+	<td><input type="password" class="textinput requireinput " id="新密码" name="新密码" value="<% if(r.新密码){%><%=r.新密码%><% }else{ %><% }%>" style="width:200px" /></td>
+</tr>
+<tr id="_t_确认密码">
+	<th>确认密码</th>
+	<td><input type="password" class="textinput requireinput " id="确认密码" name="确认密码" value="<% if(r.确认密码){%><%=r.确认密码%><% }else{ %><% }%>" style="width:200px" /></td>
+</tr>
+<% include ../admin/add_bottom.ejs %>

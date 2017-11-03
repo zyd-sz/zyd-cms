@@ -1,0 +1,270 @@
+$(function () {
+	function t(t) {
+		var e = 0;
+		return $(t).each(function () {
+			e += $(this).outerWidth(!0)
+		}), e
+	}
+
+	function e(e) {
+		var a = t($(e).prevAll()),
+			i = t($(e).nextAll()),
+			n = t($(".content-tabs").children().not(".J_menuTabs")),
+			s = $(".content-tabs").outerWidth(!0) - n - 230,
+			r = 0;
+		if ($(".page-tabs-content").outerWidth() < s) r = 0;
+		else if (i <= s - $(e).outerWidth(!0) - $(e).next().outerWidth(!0)) {
+			if (s - $(e).next().outerWidth(!0) > i) {
+				r = a;
+				for (var o = e; r - $(o).outerWidth() > $(".page-tabs-content").outerWidth() - s;) r -= $(o).prev().outerWidth(), o = $(o).prev()
+			}
+		} else a > s - $(e).outerWidth(!0) - $(e).prev().outerWidth(!0) && (r = a - $(e).prev().outerWidth(!0));
+		$(".page-tabs-content").animate({
+			marginLeft: 0 - r + "px"
+		}, "fast")
+	}
+
+	function a() {
+		var e = Math.abs(parseInt($(".page-tabs-content").css("margin-left"))),
+			a = t($(".content-tabs").children().not(".J_menuTabs")),
+			i = $(".content-tabs").outerWidth(!0) - a - 230,
+			n = 0;
+		if ($(".page-tabs-content").width() < i) return !1;
+		for (var s = $(".J_menuTab:first"), r = 0; r + $(s).outerWidth(!0) <= e;) r += $(s).outerWidth(!0), s = $(s).next();
+		if (r = 0, t($(s).prevAll()) > i) {
+			for (; r + $(s).outerWidth(!0) < i && s.length > 0;) r += $(s).outerWidth(!0), s = $(s).prev();
+			n = t($(s).prevAll())
+		}
+		$(".page-tabs-content").animate({
+			marginLeft: 0 - n + "px"
+		}, "fast")
+	}
+
+	function i() {
+		var e = Math.abs(parseInt($(".page-tabs-content").css("margin-left"))),
+			a = t($(".content-tabs").children().not(".J_menuTabs")),
+			i = $(".content-tabs").outerWidth(!0) - a - 230,
+			n = 0;
+
+		if ($(".page-tabs-content").width() < i) return !1;
+		for (var s = $(".J_menuTab:first"), r = 0; r + $(s).outerWidth(!0) <= e;) r += $(s).outerWidth(!0), s = $(s).next();
+		for (r = 0; r + $(s).outerWidth(!0) < i && s.length > 0;) r += $(s).outerWidth(!0), s = $(s).next();
+		n = t($(s).prevAll()), n > 0 && $(".page-tabs-content").animate({
+			marginLeft: 0 - n + "px"
+		}, "fast")
+
+	}
+
+	function n() {
+		// console.log('点击a标签...');
+		$('.treeview-menu a').removeClass("sliderActive");
+		$(this).addClass("sliderActive");
+
+		var t = $(this).attr("href"),
+			a = $(this).data("index"),
+			i = $.trim($(this).text()),
+			n = !0;
+		// console.log('n1',n);
+		// /Tpl/adminfunc/shop_songhuodizhi.xhtml 3 送货地址 true
+		if (void 0 == t || 0 == $.trim(t).length) return !1;
+		/* 1 有多个标签时进入循环，首次不会经过循环。2 遍历已有的标签与这个新标签是否有相同值，有：n为false，无：n为true */
+		/* 逗号表达式，从左往右逐个计算表达式 */
+		if ($(".J_menuTab").each(function () {
+				/* 遍历直到找到对应标签的dom对象，并给选中样式，给其他取消选中样式，返回n值为false，找不到就算了，n为true，进入if判断 */
+				return $(this).data("id") == t ? ($(this).hasClass("active") || ($(this).addClass("active").siblings(".J_menuTab").removeClass("active"), e(this), 
+					/* 遍历直到找到对应框架的dom对象，展示它，隐藏其他 */
+					$(".J_mainContent .J_iframe").each(function () {
+						return $(this).data("id") == t ? ($(this).show().siblings(".J_iframe").hide(), !1) : void 0
+					})
+				), n = !1, !1) : void 0
+			}), n) {
+				var s = '<a href="javascript:;" class="active J_menuTab" data-id="' + t + '">' + i + ' <i class="fa fa-times-circle"></i></a>';
+				// 移除之前的框架的选中样式
+				$(".J_menuTab").removeClass("active");
+				var r = '<iframe class="J_iframe" name="iframe' + a + '" width="100%" height="100%" src="' + t + '?v=4.0" frameborder="0" data-id="' + t + '" seamless></iframe>';
+				// 在J_mainContent(div)下找到J_iframe框架并隐藏，再找到父级添加新框架
+				$(".J_mainContent").find("iframe.J_iframe").hide().parents(".J_mainContent").append(r);
+				var o = layer.load();
+				$(".J_mainContent iframe:visible").load(function () {
+					layer.close(o)
+				}), $(".J_menuTabs .page-tabs-content").append(s), e($(".J_menuTab.active"))
+				// console.log('生成新标签', i);
+
+				//这里加入本地存储，保证刷新后有所保留而不会被清到
+				var storage = window.localStorage;
+				console.log('storage.topNav', storage.topNav);
+				var data = {'dataId': t, 'dataName': i, 'dataIndex': a}
+				storage.topNav || (storage.setItem("topNav",'[]'));
+				var navData = JSON.parse(storage.topNav);
+				navData.push(data);
+				storage.topNav = JSON.stringify(navData);
+				console.log('呵呵呵', storage.topNav);
+		}
+		return !1
+	}
+
+	// 删除本地存储
+	function w(arg) {
+		var data = JSON.parse(window.localStorage.topNav);
+		if(arg) {
+			for (var i = 0; i < data.length; i++) {
+				if (data[i].dataId == arg) {
+					data.splice(i, 1);
+					break;
+				}
+			}
+		}else {
+			data = [];
+		}
+		
+		window.localStorage.topNav = JSON.stringify(data);
+	}
+
+	function s() {
+		// console.log('关闭单个导航条...');
+		var t = $(this).parents(".J_menuTab").data("id"),
+			a = $(this).parents(".J_menuTab").width();
+		//通过id删除本地存储里的相应字段
+		/* console.log(data);
+		dataId:"/Tpl/adminfunc/vip_info.xhtml"
+		dataIndex:"vip_info"
+		dataName:"用户资料" */
+		/* data.forEach(function(item, key){
+			console.log(item.dataId, t, key);
+			return item.dataId == t ? (data.splice(key, 1), !1) : void 0
+		}); */
+		w(t)
+
+		// 单个导航的兄弟标签个数
+		// console.log($(this).parents(".J_menuTab").siblings().size())
+		// 删除的那个导航父级是选中的导航
+		if ($(this).parents(".J_menuTab").hasClass("active")) {
+			// 没有其他导航时移除它显示首页
+			if ($(this).parents(".J_menuTab").siblings().size() == 0) {
+				$(this).parents(".J_menuTab").remove();
+				$('.J_index').show();
+			} else if ($(this).parents(".J_menuTab").siblings().size() != 0) {
+				// next找下一个同胞元素，没有就是0说明排最后，有就算1
+				// 排中间或第一时
+				if ($(this).parents(".J_menuTab").next(".J_menuTab").size()) {
+					// data("id") jq对data-*属性的拿取
+					var i = $(this).parents(".J_menuTab").next(".J_menuTab:eq(0)").data("id");
+					$(this).parents(".J_menuTab").next(".J_menuTab:eq(0)").addClass("active"), $(".J_mainContent .J_iframe").each(function () {
+						// 遍历，直到找到删除的标签的后一个标签对应框架，之后显示它，隐藏其他
+						return $(this).data("id") == i ? ($(this).show().siblings(".J_iframe").hide(), !1) : void 0
+					});
+					var n = parseInt($(".page-tabs-content").css("margin-left"));
+					0 > n && $(".page-tabs-content").animate({
+						marginLeft: n + a + "px"
+					}, "fast"), $(this).parents(".J_menuTab").remove(), $(".J_mainContent .J_iframe").each(function () {
+						return $(this).data("id") == t ? ($(this).remove(), !1) : void 0
+					})
+				}
+				// 排最后时
+				if ($(this).parents(".J_menuTab").prev(".J_menuTab").size()) {
+					var i = $(this).parents(".J_menuTab").prev(".J_menuTab:last").data("id");
+					$(this).parents(".J_menuTab").prev(".J_menuTab:last").addClass("active"), $(".J_mainContent .J_iframe").each(function () {
+						return $(this).data("id") == i ? ($(this).show().siblings(".J_iframe").hide(), !1) : void 0
+					}), $(this).parents(".J_menuTab").remove(), $(".J_mainContent .J_iframe").each(function () {
+						return $(this).data("id") == t ? ($(this).remove(), !1) : void 0
+					})
+				}
+			}
+
+		} else $(this).parents(".J_menuTab").remove(), $(".J_mainContent .J_iframe").each(function () {
+			return $(this).data("id") == t ? ($(this).remove(), !1) : void 0
+		}), e($(".J_menuTab.active"));
+		return !1
+	}
+
+	function r() {
+		$(".page-tabs-content").children("[data-id]").not(".active").each(function () {
+			$('.J_iframe[data-id="' + $(this).data("id") + '"]').remove(), $(this).remove()
+		}), $(".page-tabs-content").css("margin-left", "0")
+	}
+
+	function o() {
+		e($(".J_menuTab.active"))
+	}
+
+	function d() {
+		// console.log('点击头部导航...');
+
+		if (!$(this).hasClass("active")) {
+			// adminLET的特效
+			$(".treeview-menu").slideUp(500);
+			$('.treeview-menu a').removeClass("sliderActive");
+			var t = $(this).data("id");
+			$("a[href='" + t + "']").parent().parent().slideDown(500);
+			$("a[href='" + t + "']").addClass("sliderActive");
+			$("a[href='" + t + "']").parent().parent().parent().addClass("active");
+
+			// 遍历每一个框架，显示选中的，
+			$(".J_mainContent .J_iframe").each(function () {
+				return $(this).data("id") == t ? (a = layer.load(), $(this).attr("src", t).load(function () {
+					layer.close(a)
+				}),  $(this).show().siblings(".J_iframe").hide(), !1) : void 0
+			}), $(this).addClass("active").siblings(".J_menuTab").removeClass("active"), e(this);
+
+			
+		}
+		
+	}
+
+	function c() {
+		// console.log(1111)
+		var t = $('.J_iframe[data-id="' + $(this).data("id") + '"]'),
+			e = t.attr("src"),
+			a = layer.load();
+		t.attr("src", e).load(function () {
+			layer.close(a)
+		})
+	}
+
+	
+
+	/* 在网页渲染js时执行，遍历J_menuItem的左边导航a标签，有多少导航遍历多少次 */
+	$(".J_menuItem").each(function (t) {
+		//这个表达式很好玩的，相当于 if（没有属性）{添加属性} 代码执行之后会自动给每一个对象一个data-index的值 这样不用自己手动一个个来，但对于用ejs的人来说 这没什么卵意思
+		// $(this).attr("data-index") || $(this).attr("data-index", t);
+		
+		/* 1 给左边导航a绑定单点击事件，执行n。
+		   2 头部的导航带添加单点击事件，绑定到单个导航的i标签上的事件执行s。
+		   3 头部的导航带添加单点击事件，绑定到单个导航的事件执行d。
+		   4 头部的导航带添加双点击事件，绑定到单个导航的事件执行c。
+		   5 头部的导航带左边按钮添加单点击事件，执行a。
+		   6 头部的导航带右边按钮添加单点击事件，执行i。
+		   7 回到首页的单点击事件，执行显示。
+		*/
+	}), $(".J_menuItem").on("click", n), $(".J_menuTabs").on("click", ".J_menuTab i", s), $(".J_tabCloseOther").on("click", r), $(".J_tabShowActive").on("click", o), $(".J_menuTabs").on("click", ".J_menuTab", d), $(".J_menuTabs").on("dblclick", ".J_menuTab", c), $(".J_tabLeft").on("click", a), $(".J_tabRight").on("click", i), $(".J_turnIndex").on("click", function () {
+		$(".J_index").show()
+	}), $(".J_tabCloseAll").on("click", function () {
+		w();
+		$(".page-tabs-content").children("[data-id]").each(function () {
+			$('.J_iframe[data-id="' + $(this).data("id") + '"]').remove(), $(".J_index").show(), $(this).remove()
+		}), $(".page-tabs-content").children("[data-id]:first").each(function () {
+			$('.J_iframe[data-id="' + $(this).data("id") + '"]').show(), $(this).addClass("active")
+		}), $(".page-tabs-content").css("margin-left", "0")
+	})
+	
+	if(window.localStorage.topNav) {
+		var data = JSON.parse(window.localStorage.topNav);
+		data.forEach(function(k,v) {
+			active = '';
+			data.length -1 != v || (active = 'active');
+			var t = k.dataId,
+				i = k.dataName,
+				a = k.dataIndex;
+			var s = '<a href="javascript:;" class="' + active + ' J_menuTab" data-id="' + t + '">' + i + ' <i class="fa fa-times-circle"></i></a>';
+			// 移除之前的框架的选中样式
+			
+			var r = '<iframe class="J_iframe" name="iframe' + a + '" width="100%" height="100%" src="' + t + '?v=4.0" frameborder="0" data-id="' + t + '" seamless></iframe>';
+			// 在J_mainContent(div)下找到J_iframe框架并隐藏，再找到父级添加新框架
+			$(".J_mainContent").find("iframe.J_iframe").hide().parents(".J_mainContent").append(r);
+			$(".J_mainContent iframe:visible").load(function () {
+			}), $(".J_menuTabs .page-tabs-content").append(s);
+
+		});
+	}
+
+});

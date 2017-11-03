@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+	<html>
+		<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="x-ua-compatible" content="ie=7" />
+		<title><%=_json.名称%> - <%=_variable.设置.名称%></title>
+		<link href="../../public/admin/css/style.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../public/admin/css/wangEditor.min.css">
+		
+		<script src="../../public/admin/js/jquery.js" type="text/javascript"></script>
+		<script type="text/javascript">
+			ord_select='<%- _ENV.ord_pagear%>';//搜索
+			app='<%= path%>';//清空
+			_ms_main = '';
+			lists_width='';
+			_ms_main = '<%= arg._ms_main%>';
+ 			lists_height='';
+ 			_open_type = '<%= arg._open_type%>';
+ 			_seach = '<%= arg._seach%>';
+ 			_exc = '<%= exc%>';
+			function jq_href(html,id){
+				var iWidth = "800"; 
+			  	var iHeight ="500";
+			  	if(lists_width>0) iWidth = lists_width;
+			  	if(lists_height>0) iHeight = lists_height;
+			  	var itop = (window.screen.height-iHeight)/2; 
+			  	var ileft = (window.screen.width-iWidth)/2;
+				 	window.open(html+'&_open_type=2', 'newwindow'+id, 'height='+iHeight+', width='+iWidth+', top='+itop+', left='+ileft+', toolbar=no, menubar=no, scrollbars=yes,resizable=no,location=no, status=no');
+				 	window_i++;
+			}
+
+
+		</script>
+		<script src="../../public/admin/js/adminjs.js" type="text/javascript"></script>
+		</head>
+	<body>
+		<iframe name="iframe" id="iframe" style="display:none;" ></iframe>
+		<div class="fanwe-body" id="main">
+  		<div class="fb-title">
+			<%- page%>
+			<div class="div" style="float:left;">
+				<p><span><a href="/Tpl/admin/main.xhtml" target="_top"><%=_json.名称%></a><span id="fast_jump"></span></span>
+				</p>
+			</div>
+		</div>
+		<div class="fb-body">

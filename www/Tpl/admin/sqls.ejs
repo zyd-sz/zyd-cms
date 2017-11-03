@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+	<html>
+		<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="x-ua-compatible" content="ie=7" />
+		<title>搜索表展示</title>
+		<link href="../../public/admin/css/style.css" rel="stylesheet" />
+		</head>
+	<body>
+		<iframe name="iframe" id="iframe" style="display:none;" ></iframe>
+		<div class="fanwe-body" id="main">
+  		<div class="fb-title">
+			<div class="div" style="float:left;">
+				<p><span><a href="/Tpl/admin/main.xhtml" target="_top">搜索表展示</a><span id="fast_jump"></span></span>
+				</p>
+			</div>
+		</div>
+		<div class="fb-body">
+<div id="add" class="lookjq"><img src="../../public/admin/images/ajaxloading1.gif" />提交，请稍等…</div>
+<table class="body-table" cellpadding="0" cellspacing="1" border="0">
+	<tr>
+		<td class="body-table-td">
+			
+				<div class="body-table-div">
+					<div class="handle-btns img-b">
+<script>
+	lists_width = "800";
+	lists_height = "500";
+</script>
+<div id="search">
+	<div id="content">
+		<div style="float:left">
+		</div>
+	</div>
+</div>
+</div>
+
+<div class="search-box"></div>
+<table id="checkList" class="table-list list" cellpadding="0" cellspacing="0" border="0" rel="">
+<%if(r[0] == undefined || r[0] ==null ||r[0] ==''){%>
+	<tr>
+		<td>搜索无数据</td>
+	</tr>
+<%}else{%>
+	
+
+
+	<thead>
+		<tr>
+			<th class="first" width="30"><input name="" type="checkbox" onclick="dein()" id="howinput" /></th>
+			<% for(item in r[0]){ %>
+				<th width="100px">
+					<a ><%= item %>
+	
+					</a>
+				</th>
+			<% } %>
+		</tr>
+	</thead>
+	<tbody>
+		<% var class_name = "class=even";if(r.length == 0){ %>
+		<td colspan="<%= r[0].length %>" style="color: #333;line-height: 4;font-size: 16px; border-bottom: 0px solid #FFF;"><img style="width: 25px; vertical-align: middle; margin-right: 10px;" src="../../public/admin/images/close.png" />没有查询到符合条件的记录</td>
+		<% }r.forEach(function (name,key){if(class_name == "class=even") class_name = ''; else class_name = "class=even";%>
+		<tr <%=class_name%> >
+			<td class="first"><input name="howde[]" type="checkbox" value="<%=name.id%>" class="idinput" /></td>
+			<% for(item in name){ %>
+				<td>
+					<%=name[item]%>
+				</td>
+			<% } %>
+		</tr>
+		<% })%>
+		
+<%}%>	
+		<% include ../admin/look_bottom.ejs %>

@@ -1,0 +1,96 @@
+<!--更新人：郑杰鹏；更新时间：2017/1/4；更新内容：编辑页的角色身份和我的密码、首页都禁止点击-->
+
+
+<% include ../admin/add_top.ejs %>
+<script>
+$(document).ready(function (){
+	$(".all").click(function (){
+		if($(this).attr('checked')==true)
+		{ 
+		$(this).parent().parent().find("input").attr("checked",true);
+		}
+		else 
+		$(this).parent().parent().find("input").attr("checked",false);
+	});	
+});
+	
+</script>
+<tr><th width="15%">角色名称</th><td>
+<% if(r.id){ %>	
+<input name="名称" type="text" class="textinput requireinput" value="超级管理员" readonly="readonly" />
+<% }else{ %>
+<input name="名称" type="text" class="textinput requireinput" value=""/>
+<% }%>
+</td></tr><tr><th>权限设置</th><td>1. 如果要指定当前模块下的所有权限，可选中该模块名称<br>2. 如果要指定当前模块下的操作权限，可选中该模块的操作名称
+</td></tr>
+<%if(r.id){%>	
+<input type="hidden" name="id" value="<%=r.id %>" />
+<%}%>
+<input   type="hidden" name="录入时间" value="<% if(r.录入时间){%><%=r.录入时间%><% }else{ %><%=date%><% }%>"/>
+<% for(var i =0; i<treeMenu.length; i++){ %>
+<tbody>
+	    <tr>
+	    	<th>
+	    		<strong>
+	    			<%= treeMenu[i].名称%>
+	    		</strong>
+	    	</th>
+	    	<td>
+	    		<input name="" type="checkbox" value="" class="all_select"  />&nbsp;全选<%= treeMenu[i].名称%>
+	    	</td>
+	    </tr>
+	    <% (treeNav[treeMenu[i].名称]).forEach(function(item){ %>
+        <tr>
+        	<th>
+        		<%= item.名称 %>:<input type="checkbox" class="all"/>
+        	</th>
+        	<td id="td_<%= item.func%>">
+                <input type="hidden" name="node_字段" value="<%=item.func %>" />
+		        <input name="node_查看_<%= item.func%>" type="checkbox" value="lo"/>查看&nbsp;         
+                <%  (item.按钮内容_arr).forEach(function(item2){ %>
+                <input name="node_按钮_<%= item.func%>" type="checkbox" value="<%=item2.func%>"/><%=item2.字段%>&nbsp;
+                <% }); %> 
+        </td></tr>
+        <% }) %>	
+</tbody>
+<% } %>
+	<!--<div class="hahaha" style="width: 100%;height: 70px; position: absolute; top: 155px; left: 0px;"></div>-->
+<script>
+
+$(".all_select").eq(0).click(function (){
+   if($(this).attr("checked")==true)
+   {
+   	for(var i=0; i<=$(this).parent().parent().parent().find("input").length;i++){
+   		$(this).parent().parent().parent().find("input").eq(i).attr({"checked":true}); 
+   	}
+   }
+   else{$(this).parent().parent().parent().find("input").attr({"checked":false}); 
+
+   }	
+   
+})
+for(var i=1; i<=$(".all_select").length;i++){
+	$(".all_select").eq(i).click(function (){
+		if($(this).attr("checked")==true){
+			$(this).parent().parent().parent().find("input").attr({"checked":true}); 
+		}else{
+			$(this).parent().parent().parent().find("input").attr({"checked":false}); 
+		}
+	})
+}
+</script>
+<script type="text/javascript">
+
+<% if(r.id){ var 权限=JSON.parse(r.权限);%> 
+	$('.requireinput').val('<%=r.名称%>');
+	<%for(var js in 权限){  %>
+		<% if(权限[js].按钮 != '' && 权限[js].按钮 != null){if(typeof(权限[js].按钮) =="string"){ %>
+			$('#td_<%=权限[js].字段%>').find("input[name='node_按钮_<%=权限[js].字段%>'][value='<%= 权限[js].按钮%>']").attr("checked","checked");
+		<% }else{(权限[js].按钮).forEach(function (name2){ %>
+			$('#td_<%=权限[js].字段%>').find("input[name='node_按钮_<%=权限[js].字段%>'][value='<%=name2%>']").attr("checked","checked");
+		<% })} } if(权限[js].查看==1){%>
+    		$('#td_<%=权限[js].字段%>').find("input[name='node_查看_<%=权限[js].字段%>']").attr("checked","checked");
+    	<%}%>
+<%} } %>
+</script>
+<% include ../admin/add_bottom.ejs %>

@@ -1,0 +1,49 @@
+
+		<tr class="act">
+			<th><div id="add"><img src="../../public/admin/images/ajaxloading1.gif" />提交，请稍等…</div>&nbsp;</th>
+			<td>
+				<input type="submit" class="submit_btn" value="提交" id="form_submit"  />
+                <input type="reset" class="reset_btn" value="重置" id="form_reset" />
+
+                &nbsp;<select name="_open_type" id="_open_type">
+                  <option value="1">关闭刷新(alt+s)</option>
+                  <option value="2">保留刷新(alt+d)</option>
+                </select>
+
+                </td>
+		</tr>
+
+	</table>
+</form>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+</body>
+<script type="text/javascript">
+jQuery(function($){
+	updateBodyDivHeight();
+	$(window).resize(function(){
+		updateBodyDivHeight();
+	});
+});
+
+function updateBodyDivHeight()
+{
+	jQuery(".body-table-div").height(jQuery(".fanwe-body").height() - 36);
+	if(jQuery(".body-table-div").get(0).scrollHeight > jQuery(".body-table-div").height())
+	{
+		var width = jQuery(".body-table-div").width() - 16;
+		jQuery(".body-table-div > *").each(function(){
+			if(!$(this).hasClass('ajax-loading'))
+			{
+				$(this).width(width)	
+			}
+		});
+	}
+}
+</script>
+</html>

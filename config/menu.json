@@ -1,0 +1,136 @@
+[{
+  "菜单": [{
+      "id": 1,
+      "名称": "会员管理",
+      "模块": "admincon",
+      "是否头部": "1",
+      "是否菜单": "1",
+      "页面图标": "fa fa-users"
+    },
+    {
+      "id": 2,
+      "名称": "系统",
+      "模块": "admincon",
+      "是否头部": "1",
+      "是否菜单": "1",
+      "页面图标": "fa fa-user push"
+    }
+  ]
+}, {
+  "导航": [{
+      "id": 1,
+      "名称": "用户",
+      "func": "user",
+      "网址": "/Tpl/admincon/user.xhtml",
+      "是否头部": "0",
+      "是否菜单": "1",
+      "按钮内容": [{
+          "字段": "添加用户",
+          "func": "user_insert"
+        },
+        {
+          "字段": "批量修改状态",
+          "func": "updateStateAll"
+        },
+        {
+          "字段": "修改用户资料",
+          "func": "user_update"
+        },
+        {
+          "字段": "修改状态",
+          "func": "updateState"
+        },
+        {
+          "字段": "删除用户",
+          "func": "deleteUser"
+        }
+      ],
+      "菜单": "系统"
+    },
+    {
+      "id": 4,
+      "名称": "权限",
+      "func": "power",
+      "网址": "/Tpl/admincon/power.xhtml",
+      "是否头部": "0",
+      "是否菜单": "1",
+      "按钮内容": [{
+          "字段": "添加权限",
+          "func": "power_insert"
+        },
+        {
+          "字段": "修改权限资料",
+          "func": "power_update"
+        },
+        {
+          "字段": "删除权限资料",
+          "func": "deletePower"
+        },
+        {
+          "字段": "批量删除权限资料",
+          "func": "deletePowerAll"
+        }
+      ],
+      "菜单": "系统"
+    },
+    {
+      "id": 20,
+      "名称": "我的密码",
+      "func": "my_pass",
+      "网址": "/Tpl/admin/my_pass.xhtml",
+      "是否头部": "0",
+      "是否菜单": "1",
+      "按钮内容": "",
+      "菜单": "系统"
+    },
+    {
+      "id": 21,
+      "名称": "用户资料",
+      "func": "vip_info",
+      "网址": "/Tpl/adminfunc/vip_info.xhtml",
+      "是否头部": "0",
+      "是否菜单": "1",
+      "按钮内容": [{
+          "字段": "重置密码",
+          "func": "updatepwd"
+        },
+        {
+          "字段": "账号停用",
+          "func": "updateAccount"
+        },
+        {
+          "字段": "账号启用",
+          "func": "updateNormal"
+        },
+        {
+          "字段": "限制出账",
+          "func": "failMoney"
+        },
+        {
+          "字段": "修改角色权限",
+          "func": "vip_info_update"
+        }
+      ],
+      "菜单": "会员管理",
+      "类别": "平"
+    },
+    {
+      "id": 40,
+      "名称": "后台日志",
+      "func": "houtai_rizhi",
+      "网址": "/Tpl/admincon/houtai_rizhi.xhtml",
+      "是否头部": "0",
+      "是否菜单": "1",
+      "按钮内容": [{
+          "字段": "查看备注",
+          "func": "houtai_rizhi_list"
+        },
+        {
+          "字段": "导出表格",
+          "func": "export_exl"
+        }
+      ],
+      "菜单": "系统"
+    }
+  ]
+}]

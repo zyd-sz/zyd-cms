@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta charset="UTF-8">
+		<title>
+			<%=_variable.设置.名称%> - 系统登录</title>
+		<link rel="stylesheet" href="../../public/admin/css/login1.css" />
+		<link rel="stylesheet" href="../../public/admin/css/current.css" />
+	</head>
+
+	<body>
+		<div class="span12">
+			<div class="row">
+				<!--左边-->
+				<div class="span6">
+					<div id="contPar" class="contPar">
+						<div id="page1" style="z-index:1;">
+							<div class="title0" data-i18n="login.名称">								
+								<%=_variable.设置.名称%>管理平台</div>
+							<div class="imgGroug">
+								<ul>
+									<img alt="" class="img0 png" src="../../public/admin/img/page1_0.png">
+									<img alt="" class="img1 png" src="../../public/admin/img/page1_1.png">
+									<img alt="" class="img2 png" src="../../public/admin/img/page1_2.png">
+								</ul>
+							</div>
+							<img alt="" class="img3 png" src="../../public/admin/img/page1_3.jpg">
+						</div>
+					</div>
+				</div>
+				<!--右边-->
+				<div class="span6">
+					<div class="main_box">
+						<div class="login_box">
+							<div class="login_logo">
+								<h1 data-i18n="login.用户登录">用户登录</h1>
+							</div>
+
+							<div class="login_form">
+								<form method='post' name="login" id="login" action="/Tpl/admin/login_submit.xhtml" onsubmit="return form(this)" target="iframe">
+									<div class="form-group">
+										<label for="j_username" class="t" data-i18n="login.用户名" style="width: 28%;display: inline-block;">用户名：</label>
+										<input id="username" value="" name="admin_name" type="text" class="form-control x249 in" autocomplete="off">
+									</div>
+									<div class="form-group">
+										<label for="j_password" class="t" data-i18n="login.密码" style="width: 28%;display: inline-block;">密　码：</label>
+										<input id="password" value="" name="admin_pwd" type="password" class="password form-control x249 in">
+										<input type="hidden" name="pass" id="pass" value="" />
+									</div>
+
+									<!--<div class="form-group" id="sms">
+										<label for="j_username" class="t">验证码：</label>
+										<input id="code" onfocus="change()"  onclick="change()" value="" name="code" type="text" class="form-control x219 in" autocomplete="off">
+										<img id="vcode" onclick="change()" src="/Tpl/admin/validate_pic.xhtml?pic=<%=Date.parse(new Date())%>" style="width: 124px;" />
+									</div>-->
+
+									<div class="form-group">
+										<button type="submit" class="btn btn-primary" id="login" style="top: -50px;" data-i18n="login.登录">登录</button>
+									</div>
+
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="../../public/admin/js/jquery.js"></script>
+		<script type="text/javascript" src="../../public/admin/js/jquery-1.8.0.min.js"></script>
+		<script type="text/javascript" src="../../public/admin/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="../../public/admin/js/com.js"></script>
+		<script type="text/javascript" src="../../public/admin/js/login.js"></script>
+		<script type="text/javascript" src="../../public/admin/js/i18next-1.11.2.js"></script>
+		<script type="text/javascript" src="../../public/admin/js/i18n.js"></script>
+		
+		<script type="text/javascript">
+			$(function(){
+				//window.location.href='/Tpl/admin/login.xhtml';
+				change()
+				window.localStorage.topNav = JSON.stringify([]);
+			})
+			function form(form) {
+				//console.log(1);
+				if(form.admin_name.value == "") {
+					alert('账号不能为空');
+					return false;
+				}
+				if(form.admin_pwd.value == "") {
+					alert('密码不能为空');
+					return false;
+				}
+				/*if(form.code.value == "") {
+					alert('验证码不能为空');
+					return false;
+				}*/
+				$("#pass").val(MD5(form.admin_pwd.value));
+			}
+
+			function change() {
+
+				//console.log(1);
+				var newParams = Math.round(Math.random() * 100) + '<%=Date.parse(new Date())%>';
+
+				$('#vcode').attr('src', '/Tpl/admin/validate_pic.xhtml?pic=' + newParams);
+			}
+			
+			//i18n
+			
+		</script>
+		
+	</body>
+	<iframe style="display:none;" name="iframe"></iframe>
+</html>

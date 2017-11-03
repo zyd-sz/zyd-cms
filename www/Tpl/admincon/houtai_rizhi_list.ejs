@@ -1,0 +1,22 @@
+<% include ../admin/add_top.ejs %>
+<tr id="_t_id">
+	<th width="150">id</th>
+	<%var r = r[0];%>
+	<td>
+		<input type="text" ReadOnly="true" class="textinput" id="id" name="id" value="<% if(r.id){%><%=r.id%><% }else{ %><% }%>" style="width:200px" /></td>
+</tr>
+<tr id="_t_备注">
+	<th>备注</th>
+	<td><textarea class="textinput" ReadOnly="true" name="备注" id="备注" style="width:450px; height:200px;"><% if(r.备注){%><%=r.备注%><% }else{ %><% }%></textarea></td>
+</tr>
+<tr id="_t_录入人">
+	<th>录入人</th>
+	<td><input type="text" ReadOnly="true" class="textinput" id="录入人" name="录入人" value="<% if(r.录入人){%><%=r.录入人%><% }else{ %><%=session.user_name%><% }%>" style="width:200px" /></td>
+</tr>
+<tr id="_t_录入时间">
+	<th>录入时间</th>
+	<td><input type="text" ReadOnly="true" class="textinput" id="录入时间" name="录入时间" value="<% if(r.录入时间){%><%=r.录入时间%><% }else{ %><%=date%><% }%>" style="width:200px" /></td>
+</tr>
+
+
+<% include ../admin/look_bottom.ejs %>

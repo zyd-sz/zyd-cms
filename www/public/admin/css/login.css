@@ -1,0 +1,29 @@
+
+body{font-family:Arial,"宋体";background:#ffffff;font-size:12px; background:url(../images/loginbg.png) repeat-x;}
+#login-box{margin:118px auto 0 auto; width:700px; height:337px; background:url(../images/login.jpg) no-repeat;position:relative; }
+#login-box #login_con{ width:250px;  margin:70px 0 0 350px; display:inline; float:left;  padding:0px; }
+#login-box .input{ border:none;padding:5px 5px;
+float:left;
+height:17px; 
+width:151px;
+margin:0 0 10px 0px; 
+background-image:url(../images/login_img.jpg);
+}
+#login-box #logo{ top:110px; left:110px; position:absolute;}
+#login_con th{ color:#999; text-align:right; padding:0 5px 10px 0;}
+#login_con td{ _padding:3px 0 3px 0;*padding:3px 0 3px 0;}
+#admin_name{  background-position:0px -27px;}
+#admin_pwd{  background-position:0px -54px;}
+#login-box #verify{ height:17px; width:90px;  background-position:0px -81px; border-right:#b6b7b8 solid 1px; float:left;}
+#verifyImg{ cursor:pointer; margin-left:10px; }
+
+.loading{background:url(../images/ajaxloading1.gif) no-repeat 0 2px; color:#0e6cd4;}
+.error{background:url(../images/ajaxerror.gif) no-repeat 0 3px; color:#f30;}
+#resultMsg{
+	float:left;
+width:200px;
+color:red;}
+#resultMsg img{
+vertical-align:middle;}
+
+

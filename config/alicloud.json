@@ -1,0 +1,14 @@
+{
+	"阿里云参数1": {
+		"region": "oss-cn-shenzhen",
+		"accessKeyId": "LTAILX1dJyVDfG7W",
+		"accessKeySecret": "porFTxA7VyZOM2nlxHCJw47DaSF2jk",
+		"bucket": "qqwlw"
+	},
+	"阿里云参数2": {
+		"region": "oss-cn-shenzhen",
+		"accessKeyId": "LTAIRz4pA6Qeu12D",
+		"accessKeySecret": "ZASbh3Xg1RtSo6VxwLnNkSlNvXNMYJ",
+		"bucket": "zyk-temp"
+	}
+}

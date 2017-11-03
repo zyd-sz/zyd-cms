@@ -1,0 +1,96 @@
+<% include ../admin/look_top.ejs%>
+<script>
+	lists_width = "800";
+	lists_height = "500";
+</script>
+<% if(_按钮权限.indexOf("power_insert")>=0){ %>
+<div class="img-button img-2">
+	<p><input type="button" value="添加权限" onclick='jq_bottom("1","/Tpl/admincon/power_insert.xhtml?a=1","添加权限","power","")' class="addData" /></p>
+</div>
+<% }%>
+<% if(_按钮权限.indexOf("deletePowerAll")>=0){ %>
+<div class="img-button  img-1 ">
+	<p><input type="button" disabled="disabled" value="批量删除权限" onclick='jq_bottom("4","/Tpl/admincon/power_button.xhtml?a=1","deletePowerAll","","")' class="addData" /></p>
+</div>
+<% }%>
+<div id="select_button">
+	<% if(_按钮权限.indexOf("deletePower")>=0){ %>
+	<a v='["4","/Tpl/admincon/power_button.xhtml?a=1","deletePower","",""]'>删除权限</a>
+	<% }%>
+	
+	<% if(_按钮权限.indexOf("power_update")>=0){ %>
+	<a v='["1","/Tpl/admincon/power_update.xhtml?a=1","修改权限资料","power",""]'>修改权限资料</a>
+	<% }%>
+</div>
+<div id="search">
+	<div id="input"><input type="submit" id="button" value="搜索" onclick="jq_select()" class="submit_btn" /><input type="button" value="清空" onclick="jump_html()" class="submit_btn" id="clear" /></div>
+	<div id="content">
+		<div style="float:left">
+			<div style="float:left;">
+				<div style="float:left;">角色身份：</div><input type="text" name="名称" value="<%=arg.名称%>" />&nbsp;&nbsp;</div>
+		</div>
+	</div>
+</div>
+</div>	
+	</form>
+	<div class="search-box"></div>
+		<table id="checkList" class="table-list list" cellpadding="0" cellspacing="0" border="0" rel="">
+			<thead>
+				<tr>
+					<th class="first" width="30"><input name="" type="checkbox" onclick="dein()" id="howinput" /></th>
+					<th width="100px">
+						<a onclick="ord('id')">id
+							<%=arrow['id']%>
+						</a>
+					</th>
+					<th width="~left">
+						<a onclick="ord('名称')">角色身份
+							<%=arrow['名称']%>
+						</a>
+					</th>
+					<th width="50px">
+						<a onclick="ord('状态')">状态
+							<%=arrow['状态']%>
+						</a>
+					</th>
+					<th width="100px">
+						<a onclick="ord('录入人')">录入人
+							<%=arrow['录入人']%>
+						</a>
+					</th>
+					<th width="160px">
+						<a onclick="ord('录入时间')">录入时间
+							<%=arrow['录入时间']%>
+						</a>
+					</th>
+					<th width="100px">
+						<a>操作
+							<%=arrow['操作']%>
+						</a>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% var class_name = "class=even";if(r.length == 0){ %>
+				<td colspan="5" style="color: #333;line-height: 4;font-size: 16px; border-bottom: 0px solid #FFF;"><img style="width: 25px; vertical-align: middle; margin-right: 10px;" src="../../public/admin/images/close.png" />没有查询到符合条件的记录</td>
+				<% }r.forEach(function (name,key){if(class_name == "class=even") class_name = ''; else class_name = "class=even";%>
+				<tr <%=class_name%> >
+					<td class="first"><input name="howde[]" type="checkbox" value="<%=name.id%>" class="idinput" /></td>
+					<td>
+						<%=name.id%>
+					</td>
+					<td>
+						<%=name.名称%>
+					</td>
+					<td><%=name.状态%></td>
+					<td>
+						<%=name.录入人%>
+					</td>
+					<td>
+						<%=name.录入时间%>
+					</td>
+					<td class="up_de" v="<%=name.id%>"><img src="../../public/admin/images/more1.png" class="up_select" /></td>
+				</tr>
+				<% })%>
+<% include ../admin/look_bottom.ejs %>
+

@@ -1,0 +1,280 @@
+﻿<% include ../admin/look_top.ejs%>
+<script>
+	lists_width = "800";
+	lists_height = "500";
+</script>
+<div id="select_button">
+	<% if(_按钮权限.indexOf("vip_info_update")>=0){ %>
+	<a v='["1","/Tpl/adminfunc/vip_info_update.xhtml?a=1","更改角色权限","vip_info",""]'>更改会员资料</a>
+	<% }%>
+	<% if(_按钮权限.indexOf("updateAccount")>=0){ %>
+	<a v='["3","/Tpl/adminfunc/vip_info_button.xhtml?a=1","failMoney","vip_info",""]'>限制出账</a>
+	<% }%>
+	<% if(_按钮权限.indexOf("updateAccount")>=0){ %>
+	<a v='["3","/Tpl/adminfunc/vip_info_button.xhtml?a=1","updateAccount","vip_info",""]'>账号停用</a>
+	<% }%>
+	
+	<% if(_按钮权限.indexOf("updateNormal")>=0){ %>
+	<a v='["3","/Tpl/adminfunc/vip_info_button.xhtml?a=1","updateNormal","vip_info",""]'>账号启用</a>
+	<% }%>
+
+	<% if(_按钮权限.indexOf("updatepwd")>=0){ %>
+	<a v='["3","/Tpl/adminfunc/vip_info_button.xhtml?a=1","updatepwd","vip_info",""]'>重置密码</a>
+	<% }%>
+</div>
+
+<div id="search">
+	<div id="input"><input type="submit" id="button" value="搜索" class="submit_btn" /><input type="button" value="清空" onclick="jump_html()" class="submit_btn" id="clear" /></div>
+	<div id="content" style="width: 90%;">
+			<script>
+				roothtml = "";
+			</script>
+			<link type="text/css" rel="stylesheet" href="../../public/date/calendar.css">
+			<script type="text/javascript" src="../../public/date/calendar.js"></script>
+			<script type="text/javascript" src="../../public/date/calendar-zh.js"></script>
+			<script type="text/javascript" src="../../public/date/datelib/newdate.js"></script>
+			<script src="../../public/admin/js/aliyun-oss-sdk-4.4.4.min.js" type="text/javascript"></script>
+			<link type="text/css" href="../../public/date/datelib/jquery-ui-1.8.17.custom.css" rel="stylesheet" />
+			<link type="text/css" href="../../public/date/datelib/jquery-ui-timepicker-addon.css" rel="stylesheet" />
+			<script type="text/javascript" src="../../public/date/datelib/jquery-ui-1.8.17.custom.min.js"></script>
+			<script type="text/javascript" src="../../public/date/datelib/jquery-ui-timepicker-addon.js"></script>
+			<script type="text/javascript" src="../../public/date/datelib/jquery-ui-timepicker-zh-CN.js"></script>
+			<script type="text/javascript">
+				$(function() {
+					$(".ui_timepicker").datetimepicker({
+						showSecond: true,
+						timeFormat: "hh:mm:ss",
+						stepHour: 1,
+						stepMinute: 1,
+						stepSecond: 1
+					})
+				})
+			</script>
+			<!--搜索条件-->
+			<div style="float:left;padding-right: 10px;">
+			<div style="float:left;">账号：</div>
+			<div class="jq_keyup">
+			<div class="jq_keyup_con" rel="账号^账号" v="s"></div>
+			<input rel="%E4%B8%BB%E9%94%AE=%E8%B4%A6%E5%8F%B7%0Asql%E8%AF%AD%E5%8F%A5=select%20%E8%B4%A6%E5%8F%B7%20from%20%E5%B9%B3_%E4%BC%9A%E5%91%98%E8%A1%A8%20where%20%E8%B4%A6%E5%8F%B7%20like%20'%25_select_%25'%20limit%2010%0A%09%09%09"
+			type="text" class="textinput" name="账号" id="账号" value="<%=data.账号%>"
+			onkeyup="jq_keyup_ajax('账号','id','pgdb')" onclick="jq_keyup_ajax('账号','id','pgdb')" autocomplete="off" />
+		    </div>
+            </div>
+			<div style="float:left;">
+				<div style="float:left;">昵称：</div>
+				<input type="text" name="昵称" value="<%= data.昵称%>" />&nbsp;&nbsp;</div>            
+			<div style="float:left;">
+				<div style="float:left;">手机号：</div>
+				<input type="text" name="手机号" value="<%= data.手机号%>" />&nbsp;&nbsp;</div>
+			<div style="float:left;">
+				<div style="float:left;">唯一id：</div>
+				<input type="text" name="唯一id" value="<%= data.唯一id%>" />&nbsp;&nbsp;</div>
+			<div style="float:left;">
+				<div style="float:left;">状态：</div>
+				<input type="text" name="状态" value="<%= data.状态%>" />&nbsp;&nbsp;</div>
+			<div style="float:left;">
+				<div style="float:left;">类别：</div>
+				<input type="text" name="类别" value="<%= data.类别%>" />&nbsp;&nbsp;</div>
+			<div style="float:left;">
+				<div style="float:left;">开始日期：</div>
+				<input style="height: 30px;padding: 4px 2px;height: 14px;line-height: 14px;border: solid 1px #666;" type="text" id="开始日期" name="开始日期" class="ui_timepicker" value="<%= data.开始日期%>" onclick="return showCalendar('开始日期','y-mm-dd');">&nbsp;&nbsp;</div>
+			<div style="float:left;">
+				<div style="float:left;">结束日期：</div>
+				<input style="height: 30px;padding: 4px 2px;height: 14px;line-height: 14px;border: solid 1px #666;" type="text" id="结束日期" name="结束日期" class="ui_timepicker" value="<%= data.结束日期%>" onclick="return showCalendar('结束日期','y-mm-dd');">&nbsp;&nbsp;</div>
+	</div>
+</div>
+</div>
+</form>
+<div class="search-box"></div>
+<table id="checkList" class="table-list list" cellpadding="0" cellspacing="0" border="0" rel="">
+	<thead>
+		<tr>
+			<th class="first" width="30"><input name="" type="checkbox" onclick="dein()" id="howinput" /></th>
+			<!--<th width="80px">
+				<a onclick="ord('序号')">序号
+					<% // =arrow['序号']%>
+				</a>
+			</th>-->
+			<th width="100px">
+				<a onclick="ord('id')">id
+					<%=arrow['id']%>
+				</a>
+			</th>
+			<th width="100px">
+				<a onclick="ord('唯一id')">唯一id
+					<%=arrow['唯一id']%>
+				</a>
+			</th>
+			<th width="100px">
+				<a onclick="ord('账号')">账号
+					<%=arrow['账号']%>
+				</a>
+			</th>
+			<th width="100px">
+				<a onclick="ord('手机号')">手机号
+					<%=arrow['手机号']%>
+				</a>
+			</th>
+			<th width="100px">
+				<a onclick="ord('状态')">状态
+					<%=arrow['状态']%>
+				</a>
+			</th>
+			<th width="100px">
+				<a onclick="ord('超级商家')">超级商家
+					<%=arrow['超级商家']%>
+				</a>
+			</th>
+			<th width="100px">
+				<a onclick="ord('类别')">类别
+					<%=arrow['类别']%>
+				</a>
+			</th>
+			<th width="100px">
+				<a onclick="ord('随机码')">随机码
+					<%=arrow['随机码']%>
+				</a>
+			</th>
+			<th width="100px">
+				<a onclick="ord('昵称')">昵称
+					<%=arrow['昵称']%>
+				</a>
+			</th>
+			<th width="100px">
+				<a onclick="ord('头像')">头像
+					<%=arrow['头像']%>
+				</a>
+			</th>
+			<!--<th width="50px">
+				<a onclick="ord('性别')">性别
+					<%=arrow['性别']%>
+				</a>
+			</th>
+			<th width="150px">
+				<a onclick="ord('职业')">职业
+					<%=arrow['职业']%>
+				</a>
+			</th>
+			<th width="150px">
+				<a onclick="ord('年龄')">年龄
+					<%=arrow['年龄']%>
+				</a>
+			</th>
+			<th width="150px">
+				<a onclick="ord('生日')">生日
+					<%=arrow['生日']%>
+				</a>
+			</th>
+			<th width="150px">
+				<a onclick="ord('个性签名')">个性签名
+					<%=arrow['个性签名']%>
+				</a>
+			</th>
+			<th width="150px">
+				<a onclick="ord('位置')">位置
+					<%=arrow['位置']%>
+				</a>
+			</th>-->
+			
+			<th width="100px">
+				<a onclick="ord('手机id')">手机id
+					<%=arrow['手机id']%>
+				</a>
+			</th>
+			
+			<th width="100px">
+				<a onclick="ord('商城权限')">商城权限
+					<%=arrow['商城权限']%>
+				</a>
+			</th>
+			<th width="100px">
+				<a onclick="ord('角色权限')">角色权限
+					<%=arrow['角色权限']%>
+				</a>
+			</th>
+			<th width="100px">
+				<a onclick="ord('录入时间')">录入时间
+					<%=arrow['录入时间']%>
+				</a>
+			</th>
+			<th width="100px">
+				<a>操作</a>
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% var class_name = "class=even";if(r.length == 0){ %>
+		<td colspan="15" style="color: #333;line-height: 4;font-size: 16px; border-bottom: 0px solid #FFF;"><img style="width: 25px; vertical-align: middle; margin-right: 10px;" src="../../public/admin/images/close.png" />没有查询到符合条件的记录</td>
+		<% }r.forEach(function (name,key){if(class_name == "class=even") class_name = ''; else class_name = "class=even";%>
+		<tr <%=class_name%> >
+			<td class="first"><input name="howde[]" type="checkbox" value="<%=name.id%>" class="idinput" /></td>
+			<!--<td>
+				<% //var pageNum = Number(arg.page)-1; var sumNum = Number(arg.sumnum); if(sumNum == '' || sumNum == null || !sumNum){sumNum = key+1}else{ sumNum = key + 1 + pageNum*sumNum} %>
+				<%//= sumNum %>
+			</td>-->
+			<td>
+				<%=name.id%>
+			</td>
+			<td>
+				<%=name.唯一id%>
+			</td>
+			<td>
+				<%=name.账号%>
+			</td>
+			<td>
+				<%=name.手机号%>
+			</td>
+			<td>
+				<%=name.状态%>
+			</td>
+			<td>
+				<%=name.超级商家%>
+			</td>
+			<td>
+				<%=name.类别%>
+			</td>
+			<td>
+				<%=name.随机码%>
+			</td>
+			<td>
+				<%=name.昵称%>
+			</td>
+			<td>
+			   <%if(name.头像){%>
+			   	<img src="<%=name.头像%>" style="width: 60px; height: 60px;" />
+			   <%}%>
+			</td>
+			<!--<td>
+				<%=name.性别%>
+			</td>
+			<td>
+				<%=name.职业%>
+			</td>
+			<td>
+				<%=name.年龄%>
+			</td>
+			<td>
+				<%=name.生日%>
+			</td>
+			<td>
+				<%=name.个性签名%>
+			</td>
+			<td>
+				<%=name.位置%>
+			</td>-->
+			<td>
+				<%=name.手机id%>
+			</td>
+			<td>
+				<%=name.商城权限%>
+			</td>
+			<td>
+				<%=name.角色权限%>
+			</td>
+			<td>
+				<%=name.录入时间%>
+			</td>
+			<td class="up_de" v="<%=name.id%>"><img src="../../public/admin/images/more1.png" class="up_select" /></td>
+		</tr>
+		<% })%>
+		<% include ../admin/look_bottom.ejs %>

@@ -1,0 +1,44 @@
+﻿<% include ../admin/add_top.ejs %>
+<tr id="_t_id">
+	<th width="150">id</th>
+	<td><input type="text" ReadOnly="true" class="textinput" id="id" name="id" value="<% if(r.id){%><%=r.id%><% }else{ %><% }%>" style="width:200px" /></td>
+</tr>
+<tr id="_t_账号">
+	<th>账号</th>
+	<td><input type="text" ReadOnly="true" class="textinput  " id="账号" name="账号" value="<% if(r.账号){%><%=r.账号%><% }else{ %><% }%>" style="width:200px" /></td>
+</tr>
+
+<!--<tr id="_t_积分账户">
+	<th>积分账户</th>
+	<td><input type="text" class="textinput" id="积分账户" name="积分账户" value="<% if(r.积分账户){%><%=r.积分账户%><% }else{ %><% }%>" style="width:200px" /></td>
+</tr>
+<tr id="_t_油费账户">
+	<th>油费账户</th>
+	<td><input type="text" class="textinput" id="油费账户" name="油费账户" value="<% if(r.油费账户){%><%=r.油费账户%><% }else{ %><% }%>" style="width:200px" /></td>
+</tr>-->
+
+<tr id="_t_红利账户">
+	<th>红利账户</th>
+	<td><input type="text" class="textinput requireinput " id="红利账户" name="红利账户" value="<% if(r.红利账户){%><%=r.红利账户%><% }else{ %><% }%>" style="width:200px" /></td>
+</tr>
+
+<tr id="_t_出账">
+	<th>出账</th>
+	<td><input type="text" class="textinput requireinput " id="出账" name="出账" value="<% if(r.出账){%><%=r.出账%><% }else{ %><% }%>" style="width:200px" /></td>
+</tr>
+
+<tr id="_t_状态">
+	<th>状态</th>
+	<td><input type="text" class="textinput requireinput " id="状态" name="状态" value="<% if(r.状态){%><%=r.状态%><% }else{ %><% }%>" style="width:200px" /></td>
+</tr>
+
+<tr id="_t_类别">
+	<th>类别</th>
+	<td><input type="text" class="textinput  " id="类别" name="类别" value="<% if(r.类别){%><%=r.类别%><% }else{ %><% }%>" style="width:200px" /></td>
+</tr>
+<tr id="_t_角色权限">
+	<th>角色权限</th>
+	<td><input type="text" class="textinput  " id="角色权限" name="角色权限" value="<% if(r.角色权限){%><%=r.角色权限%><% }else{ %><% }%>" style="width:200px" /></td>
+</tr>
+
+<% include ../admin/add_bottom.ejs %>

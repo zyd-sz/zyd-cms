@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+		<title>
+			<%=_json.名称%> -
+			<%=_variable.设置.名称%>
+		</title>
+		<link rel="stylesheet" type="text/css" href="../../public/admin/css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../public/admin/css/font-awesome.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../public/admin/css/ionicons.min.css" />
+		<!--morris：绘制折线图-->
+		<link rel="stylesheet" type="text/css" href="../../public/admin/css/morris.css" />
+		<!--wysihtml5：富文本-->
+		<!--<link rel="stylesheet" type="text/css" href="../../public/admin/css/bootstrap3-wysihtml5.min.css"/>-->
+		<!--daterangepicker：日历-->
+		<!--<link rel="stylesheet" type="text/css" href="../../public/admin/css/daterangepicker.css"/>-->
+		<!--<link rel="stylesheet" type="text/css" href="../../public/admin/css/datepicker3.css"/>-->
+		<link rel="stylesheet" href="../../public/admin/css/AdminLTE.min.css">
+
+		<script type="text/javascript">
+			ord_select = '<%- _ENV.ord_pagear%>'; //搜索
+			app = '<%= path%>'; //清空
+			_ms_main = '';
+			lists_width = '';
+			_ms_main = '<%= arg._ms_main%>';
+			lists_height = '';
+			_open_type = '<%= arg._open_type%>';
+			_seach = '<%= arg._seach%>';
+			_exc = '<%= exc%>';
+		</script>
+	</head>
+
+	<body>
+		<div class="content">
+			<!--第一个section：导航-->
+			<section class="content-header">
+				<h1>控制面板<small></small></h1>
+				<ol class="breadcrumb">
+					<li>
+						<a href="#"><i class="fa fa-dashboard"></i> 主页</a>
+					</li>
+					<li class="active">控制面板</li>
+				</ol>
+			</section>
+
+			<!--第二个section：主页什么的-->
+			<section class="content">
+				<!--主页的第一行：跳转链接-->
+
+				<div class="row">
+					<div class="col-lg-3 col-xs-6">
+						<div class="small-box bg-aqua">
+							<div class="inner">
+								<h3><%=zongdingdanshu%></h3>
+								<p>今日新增订单</p>
+							</div>
+							<div class="icon"><i class="ion ion-bag"></i></div>
+							<a onclick="clickMore('payment_order')" class="small-box-footer">点击更多 <i class="fa fa-arrow-circle-right"></i></a>
+						</div>
+					</div>
+
+					<div class="col-lg-3 col-xs-6 hidden">
+						<div class="small-box bg-green">
+							<div class="inner">
+								<h3>53<sup style="font-size: 20px">%</sup></h3>
+								<p>销售率</p>
+							</div>
+							<div class="icon"><i class="ion ion-stats-bars"></i></div>
+							<a href="#" class="small-box-footer">点击更多 <i class="fa fa-arrow-circle-right"></i></a>
+						</div>
+					</div>
+
+					<div class="col-lg-3 col-xs-6">
+						<div class="small-box bg-yellow">
+							<div class="inner">
+								<h3 ><%=sumVip%></h3>
+								<p>会员管理</p>
+							</div>
+							<div class="icon"><i class="ion ion-person-add"></i></div>
+							<a onclick="clickMore('vip_info')" class="small-box-footer">点击更多 <i class="fa fa-arrow-circle-right"></i></a>
+						</div>
+					</div>
+
+					<div class="col-lg-3 col-xs-6 hidden">
+						<div class="small-box bg-red">
+							<div class="inner">
+								<h3>65</h3>
+								<p>用户管理</p>
+							</div>
+							<div class="icon"><i class="ion ion-pie-graph"></i></div>
+							<a href="#" class="small-box-footer">点击更多 <i class="fa fa-arrow-circle-right"></i></a>
+						</div>
+					</div>
+				</div>
+				<!--主页的第二行：可移动的div板块-->
+				<div class="row">
+					<div class="callout bg-green">
+						<h3>更新公告</h3>
+						导航条更新：<br/>
+						右边导航自动在头部生成导航条
+					</div>
+				</div>
+
+				<div class="row">
+					<!--左边的板块-->
+					<section class="col-lg-7 connectedSortable">
+						<!--表格模块1-->
+						<div class="nav-tabs-custom">
+							<ul class="nav nav-tabs pull-right">
+								<li class="active">
+									<a href="#order" data-toggle="tab">今日订单</a>
+								</li>
+								<!--<li><a href="#sales-chart" data-toggle="tab">增长曲线</a></li>-->
+								<li>
+									<a href="#main" data-toggle="tab">最近7天销售情况</a>
+								</li>
+								<li>
+									<a href="#vip" data-toggle="tab">最近7天新增会员</a>
+								</li>
+								<li class="pull-left header"><i class="fa fa-inbox"></i> 今日订单统计</li>
+							</ul>
+							<div class="tab-content no-padding" id="echart">
+								<div class="chart tab-pane active" id="order" style="position: relative; height: 300px;"></div>
+								<div class="chart tab-pane" id="vip" style="position: relative; height: 300px;"></div>
+								<div class="chart tab-pane" id="main" style="position: relative;"></div>
+							</div>
+						</div>
+						<!---->
+						<div class="box box-primary hidden">
+							<div class="box-header">
+								<i class="ion ion-clipboard"></i>
+								<h3 class="box-title">任务清单</h3>
+								<div class="box-tools pull-right">
+									<ul class="pagination pagination-sm inline">
+										<li>
+											<a href="#">&laquo;</a>
+										</li>
+										<li>
+											<a href="#">1</a>
+										</li>
+										<li>
+											<a href="#">2</a>
+										</li>
+										<li>
+											<a href="#">3</a>
+										</li>
+										<li>
+											<a href="#">4</a>
+										</li>
+										<li>
+											<a href="#">&raquo;</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="box-body">
+								<ul class="todo-list">
+									<li>
+										<span class="handle">
+	                        				<i class="fa fa-ellipsis-v"></i>
+	                        				<i class="fa fa-ellipsis-v"></i>
+	                      				</span>
+										<input type="checkbox" value="">
+										<span class="text">设计一个主题</span>
+										<small class="label label-danger"><i class="fa fa-clock-o"></i> 2 分钟</small>
+										<div class="tools">
+											<i class="fa fa-edit"></i>
+											<i class="fa fa-trash-o"></i>
+										</div>
+									</li>
+									<li>
+										<span class="handle">
+	                        				<i class="fa fa-ellipsis-v"></i>
+	                        				<i class="fa fa-ellipsis-v"></i>
+	                      				</span>
+										<input type="checkbox" value="">
+										<span class="text">主题回复</span>
+										<small class="label label-info"><i class="fa fa-clock-o"></i> 4 小时</small>
+										<div class="tools">
+											<i class="fa fa-edit"></i>
+											<i class="fa fa-trash-o"></i>
+										</div>
+									</li>
+									<li>
+										<span class="handle">
+	                        				<i class="fa fa-ellipsis-v"></i>
+	                        				<i class="fa fa-ellipsis-v"></i>
+	                      				</span>
+										<input type="checkbox" value="">
+										<span class="text">增加关注</span>
+										<small class="label label-warning"><i class="fa fa-clock-o"></i> 1 天</small>
+										<div class="tools">
+											<i class="fa fa-edit"></i>
+											<i class="fa fa-trash-o"></i>
+										</div>
+									</li>
+								</ul>
+							</div>
+							<div class="box-footer clearfix no-border">
+								<button type="button" class="btn btn-default pull-right"><i class="fa fa-plus"></i> 添加条目</button>
+							</div>
+						</div>
+						<!--世界地图-->
+						<div class="box box-success hidden">
+							<div class="box-header with-border">
+								<h3 class="box-title">世界地图</h3>
+
+								<div class="box-tools pull-right">
+									<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+									</button>
+									<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+								</div>
+							</div>
+							<!-- /.box-header -->
+							<div class="box-body no-padding">
+								<div class="row">
+									<div class="">
+										<div class="pad">
+											<!-- Map will be created here -->
+											<div id="world-map-markers" style="height: 325px;"></div>
+										</div>
+									</div>
+								</div>
+								<!-- /.row -->
+							</div>
+							<!-- /.box-body -->
+						</div>
+
+
+						<!--各省订单量分布图-->
+						<div class="box box-success">
+							<div class="box-header with-border">
+								<h3 class="box-title">各省订单量分布图</h3>
+
+								<div class="box-tools pull-right">
+									<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+									</button>
+									<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+								</div>
+							</div>
+							<!-- /.box-header -->
+							<div class="box-body no-padding">
+								<div class="row">
+									<div class="">
+										<div class="pad">
+											<!-- Map will be created here -->
+											<div id="china-map-markers" style="height: 325px;"></div>
+										</div>
+									</div>
+								</div>
+								<!-- /.row -->
+							</div>
+							<!-- /.box-body -->
+						</div>
+
+
+
+						<div class="box box-success hidden">
+							<div class="box-header">
+								<i class="fa fa-comments-o"></i>
+								<h3 class="box-title">对话</h3>
+								<div class="box-tools pull-right" data-toggle="tooltip" title="Status">
+									<div class="btn-group" data-toggle="btn-toggle">
+										<button type="button" class="btn btn-default btn-sm active"><i class="fa fa-square text-green"></i></button>
+										<button type="button" class="btn btn-default btn-sm"><i class="fa fa-square text-red"></i></button>
+									</div>
+								</div>
+							</div>
+							<div class="box-body chat" id="chat-box">
+								<div class="item">
+									<img src="../../public/admin/img/page1_3.jpg" alt="user image" class="online">
+									<p class="message">
+										<a href="#" class="name">
+											<small class="text-muted pull-right"><i class="fa fa-clock-o"></i> 2:15</small> 龙先生
+										</a>
+										一起讨论下最新的主题啊亲！
+									</p>
+									<div class="attachment">
+										<h4>文件:</h4>
+										<p class="filename">
+											Theme-thumbnail-image.jpg
+										</p>
+										<div class="pull-right">
+											<button type="button" class="btn btn-primary btn-sm btn-flat">打开</button>
+										</div>
+									</div>
+								</div>
+								<div class="item">
+									<img src="../../public/admin/img/page1_1.png" alt="user image" class="offline">
+									<p class="message">
+										<a href="#" class="name">
+											<small class="text-muted pull-right"><i class="fa fa-clock-o"></i> 5:15</small> 赵小姐
+										</a>
+										没兴趣
+									</p>
+								</div>
+							</div>
+							<div class="box-footer">
+								<div class="input-group">
+									<input class="form-control" placeholder="编辑文本...">
+									<div class="input-group-btn">
+										<button type="button" class="btn btn-success"><i class="fa fa-plus"></i></button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+					<!--右边的板块-->
+					<section class="col-lg-5 connectedSortable">
+						<!--表格模块2-->
+
+						<div class="box box-info hidden">
+							<div class="box-header">
+								<i class="fa fa-envelope"></i>
+								<h3 class="box-title">Quick Email</h3>
+								<!-- tools box -->
+								<div class="pull-right box-tools">
+									<button class="btn btn-info btn-sm" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
+								</div>
+								<!-- /. tools -->
+							</div>
+							<div id="">
+								133444
+							</div>
+						</div>
+						
+						<div class="box box-solid bg-teal-gradient">
+							<div class="box-header">
+								<i class="fa fa-th"></i>
+								<h3 class="box-title">今日订单金额分布</h3>
+								<div class="box-tools pull-right">
+									<button type="button" class="btn bg-teal btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
+									<button type="button" class="btn bg-teal btn-sm" data-widget="remove"><i class="fa fa-times"></i></button>
+								</div>
+							</div>
+							<div class="box-body border-radius-none">
+								<div class="chart" id="range" style="height: 250px;"></div>
+							</div>
+							<div class="box-footer no-border">
+								<div class="row">
+									<div class="col-xs-4 text-center" style="border-right: 1px solid #f4f4f4">
+										<input type="text" class="knob" data-readonly="true" value='<%=daizhifu%>'data-width="60" data-height="60" data-fgColor="#39CCCC">
+										<div class="knob-label">待支付订单</div>
+									</div>
+									<div class="col-xs-4 text-center" style="border-right: 1px solid #f4f4f4">
+										<input type="text" class="knob" data-readonly="true" value='<%=yizhifu%>' data-width="60" data-height="60" data-fgColor="#39CCCC">
+										<div class="knob-label">已支付订单</div>
+									</div>
+									<div class="col-xs-4 text-center">
+										<input type="text" class="knob" data-readonly="true" value='<%=yituikuan%>' data-width="60" data-height="60" data-fgColor="#39CCCC">
+										<div class="knob-label">已退款订单</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="box box-solid">
+							<div class="box-header with-border">
+				            	<h3 class="box-title">意见反馈</h3>
+				            	<div class="box-tools pull-right">
+				                	<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+				                	<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+				              	</div>
+				            </div>
+							<div class="box-body" id="suggestion-box">
+								<ul class="products-list product-list-in-box">
+									<%for(var i =0;i < questionMiaoshu.length;i++){%>
+									<li class="item">
+									<div class="product-img">
+											<img src='<%=headPortrait[i]%>' alt="Product Image">
+										</div>
+										<div class="product-info">
+											<a class="product-title"><%=questionLeibie[i]%>
+												<span class="label label-warning pull-right"><%=state[i]%></span>
+											</a>
+											<span class="product-description">
+												<%=questionMiaoshu[i]%>
+											</span>
+										</div>
+									</li>
+									<%}%>
+								</ul>
+							</div>
+							<div class="box-footer text-center">
+              					<a onclick="clickMore('feedback')" class="uppercase">查看所有意见反馈</a>
+            				</div>
+						</div>
+					</section>
+					<input type="text" class="hidden"  id ="test" value="<%=JSON.stringify(shengdingdan)%>">
+					<% //console.log(shengdingdan)%>
+					<% //console.log("shengdingdan+++++++++++++++++")%>
+					<% //console.log(JSON.stringify(shengdingdan))%>
+				</div>
+		<script src="../../public/admin/js/jquery-1.10.2.min.js" type="text/javascript" charset="utf-8"></script>
+		<!--jquery-ui：拖拽窗口-->
+		<script src="../../public/admin/js/jquery-ui.min.js"></script>
+		<!--<script src="../../public/admin/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>-->
+		<script src="../../public/admin/js/bootstrap.min.js"></script>
+		<!--raphael：矢量图，表格用，伴随morris-->
+		<script src="../../public/admin/js/raphael.min.js"></script>
+		<script src="../../public/admin/js/morris.min.js" type="text/javascript" charset="utf-8"></script>
+		<!--<script src="../../public/admin/js/bootstrap3-wysihtml5.all.min.js" type="text/javascript" charset="utf-8"></script>-->
+		<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>-->
+		<script src="https://cdn.bootcss.com/echarts/3.6.1/echarts.min.js"></script>
+
+		<!--画世界地图用-->
+		<script src="http://gallery.echartsjs.com/dep/echarts/map/js/world.js"></script>
+		<!--画中国地图用-->
+		<script src="../../public/admin/js/china.js"></script>
+
+
+
+		<script src="../../public/admin/js/echart-walden.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../public/admin/js/echart-wonderland.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+		
+			function clickMore(a) {
+				document.location.href = "/Tpl/adminfunc/"+ a + ".xhtml";
+		    }
+
+			var pjgtt = document.getElementById('test').value;
+			var pjgdd = JSON.parse(pjgtt);
+//			console.log("pjgtt++++++++++++++++++++++++++++++++++++++++++")
+//			console.log(pjgtt);
+			var chinaMap = echarts.init(document.getElementById('china-map-markers'));
+			var option = {
+				title : {
+					text: '订单量',
+
+					x:'center'
+				},
+				tooltip : {
+					trigger: 'item'
+				},
+				legend: {
+					orient: 'vertical',
+					x:'left',
+					data:['订单量']
+				},
+				dataRange: {
+					x: 'left',
+					y: 'bottom',
+					splitList: [
+						{start: 1500},
+						{start: 900, end: 1500},
+						{start: 310, end: 1000},
+						{start: 200, end: 300},
+						{start: 10, end: 200},
+						{end: 10}
+					],
+					color: ['#E0022B', '#E09107', '#A3E00B']
+				},
+				toolbox: {
+					show: true,
+					orient : 'vertical',
+					x: 'right',
+					y: 'center',
+					feature : {
+						mark : {show: true},
+						dataView : {show: true, readOnly: false},
+						restore : {show: true},
+						saveAsImage : {show: true}
+					}
+				},
+				roamController: {
+					show: true,
+					x: 'right',
+					mapTypeControl: {
+						'china': true
+					}
+				},
+				series : [
+					{
+						name: '订单量',
+						type: 'map',
+						mapType: 'china',
+						roam: false,
+						itemStyle:{
+							normal:{
+								label:{
+									show:true,
+									textStyle: {
+										color: "rgb(249, 249, 249)"
+									}
+								}
+							},
+							emphasis:{label:{show:true}}
+						},
+						data:pjgdd
+					}
+				]
+			};
+			chinaMap.setOption(option);
+
+
+			var worldMap = echarts.init(document.getElementById('world-map-markers'));
+			var nameMap = {
+				'Afghanistan':'阿富汗',
+				'Angola':'安哥拉',
+				'Albania':'阿尔巴尼亚',
+				'United Arab Emirates':'阿联酋',
+				'Argentina':'阿根廷',
+				'Armenia':'亚美尼亚',
+				'French Southern and Antarctic Lands':'法属南半球和南极领地',
+				'Australia':'澳大利亚',
+				'Austria':'奥地利',
+				'Azerbaijan':'阿塞拜疆',
+				'Burundi':'布隆迪',
+				'Belgium':'比利时',
+				'Benin':'贝宁',
+				'Burkina Faso':'布基纳法索',
+				'Bangladesh':'孟加拉国',
+				'Bulgaria':'保加利亚',
+				'The Bahamas':'巴哈马',
+				'Bosnia and Herzegovina':'波斯尼亚和黑塞哥维那',
+				'Belarus':'白俄罗斯',
+				'Belize':'伯利兹',
+				'Bermuda':'百慕大',
+				'Bolivia':'玻利维亚',
+				'Brazil':'巴西',
+				'Brunei':'文莱',
+				'Bhutan':'不丹',
+				'Botswana':'博茨瓦纳',
+				'Central African Republic':'中非共和国',
+				'Canada':'加拿大',
+				'Switzerland':'瑞士',
+				'Chile':'智利',
+				'China':'中国',
+				'Ivory Coast':'象牙海岸',
+				'Cameroon':'喀麦隆',
+				'Democratic Republic of the Congo':'刚果民主共和国',
+				'Republic of the Congo':'刚果共和国',
+				'Colombia':'哥伦比亚',
+				'Costa Rica':'哥斯达黎加',
+				'Cuba':'古巴',
+				'Northern Cyprus':'北塞浦路斯',
+				'Cyprus':'塞浦路斯',
+				'Czech Republic':'捷克共和国',
+				'Germany':'德国',
+				'Djibouti':'吉布提',
+				'Denmark':'丹麦',
+				'Dominican Republic':'多明尼加共和国',
+				'Algeria':'阿尔及利亚',
+				'Ecuador':'厄瓜多尔',
+				'Egypt':'埃及',
+				'Eritrea':'厄立特里亚',
+				'Spain':'西班牙',
+				'Estonia':'爱沙尼亚',
+				'Ethiopia':'埃塞俄比亚',
+				'Finland':'芬兰',
+				'Fiji':'斐',
+				'Falkland Islands':'福克兰群岛',
+				'France':'法国',
+				'Gabon':'加蓬',
+				'United Kingdom':'英国',
+				'Georgia':'格鲁吉亚',
+				'Ghana':'加纳',
+				'Guinea':'几内亚',
+				'Gambia':'冈比亚',
+				'Guinea Bissau':'几内亚比绍',
+				'Equatorial Guinea':'赤道几内亚',
+				'Greece':'希腊',
+				'Greenland':'格陵兰',
+				'Guatemala':'危地马拉',
+				'French Guiana':'法属圭亚那',
+				'Guyana':'圭亚那',
+				'Honduras':'洪都拉斯',
+				'Croatia':'克罗地亚',
+				'Haiti':'海地',
+				'Hungary':'匈牙利',
+				'Indonesia':'印尼',
+				'India':'印度',
+				'Ireland':'爱尔兰',
+				'Iran':'伊朗',
+				'Iraq':'伊拉克',
+				'Iceland':'冰岛',
+				'Israel':'以色列',
+				'Italy':'意大利',
+				'Jamaica':'牙买加',
+				'Jordan':'约旦',
+				'Japan':'日本',
+				'Kazakhstan':'哈萨克斯坦',
+				'Kenya':'肯尼亚',
+				'Kyrgyzstan':'吉尔吉斯斯坦',
+				'Cambodia':'柬埔寨',
+				'South Korea':'韩国',
+				'Kosovo':'科索沃',
+				'Kuwait':'科威特',
+				'Laos':'老挝',
+				'Lebanon':'黎巴嫩',
+				'Liberia':'利比里亚',
+				'Libya':'利比亚',
+				'Sri Lanka':'斯里兰卡',
+				'Lesotho':'莱索托',
+				'Lithuania':'立陶宛',
+				'Luxembourg':'卢森堡',
+				'Latvia':'拉脱维亚',
+				'Morocco':'摩洛哥',
+				'Moldova':'摩尔多瓦',
+				'Madagascar':'马达加斯加',
+				'Mexico':'墨西哥',
+				'Macedonia':'马其顿',
+				'Mali':'马里',
+				'Myanmar':'缅甸',
+				'Montenegro':'黑山',
+				'Mongolia':'蒙古',
+				'Mozambique':'莫桑比克',
+				'Mauritania':'毛里塔尼亚',
+				'Malawi':'马拉维',
+				'Malaysia':'马来西亚',
+				'Namibia':'纳米比亚',
+				'New Caledonia':'新喀里多尼亚',
+				'Niger':'尼日尔',
+				'Nigeria':'尼日利亚',
+				'Nicaragua':'尼加拉瓜',
+				'Netherlands':'荷兰',
+				'Norway':'挪威',
+				'Nepal':'尼泊尔',
+				'New Zealand':'新西兰',
+				'Oman':'阿曼',
+				'Pakistan':'巴基斯坦',
+				'Panama':'巴拿马',
+				'Peru':'秘鲁',
+				'Philippines':'菲律宾',
+				'Papua New Guinea':'巴布亚新几内亚',
+				'Poland':'波兰',
+				'Puerto Rico':'波多黎各',
+				'North Korea':'北朝鲜',
+				'Portugal':'葡萄牙',
+				'Paraguay':'巴拉圭',
+				'Qatar':'卡塔尔',
+				'Romania':'罗马尼亚',
+				'Russia':'俄罗斯',
+				'Rwanda':'卢旺达',
+				'Western Sahara':'西撒哈拉',
+				'Saudi Arabia':'沙特阿拉伯',
+				'Sudan':'苏丹',
+				'South Sudan':'南苏丹',
+				'Senegal':'塞内加尔',
+				'Solomon Islands':'所罗门群岛',
+				'Sierra Leone':'塞拉利昂',
+				'El Salvador':'萨尔瓦多',
+				'Somaliland':'索马里兰',
+				'Somalia':'索马里',
+				'Republic of Serbia':'塞尔维亚共和国',
+				'Suriname':'苏里南',
+				'Slovakia':'斯洛伐克',
+				'Slovenia':'斯洛文尼亚',
+				'Sweden':'瑞典',
+				'Swaziland':'斯威士兰',
+				'Syria':'叙利亚',
+				'Chad':'乍得',
+				'Togo':'多哥',
+				'Thailand':'泰国',
+				'Tajikistan':'塔吉克斯坦',
+				'Turkmenistan':'土库曼斯坦',
+				'East Timor':'东帝汶',
+				'Trinidad and Tobago':'特里尼达和多巴哥',
+				'Tunisia':'突尼斯',
+				'Turkey':'土耳其',
+				'United Republic of Tanzania':'坦桑尼亚联合共和国',
+				'Uganda':'乌干达',
+				'Ukraine':'乌克兰',
+				'Uruguay':'乌拉圭',
+				'United States of America':'美国',
+				'Uzbekistan':'乌兹别克斯坦',
+				'Venezuela':'委内瑞拉',
+				'Vietnam':'越南',
+				'Vanuatu':'瓦努阿图',
+				'West Bank':'西岸',
+				'Yemen':'也门',
+				'South Africa':'南非',
+				'Zambia':'赞比亚',
+				'Zimbabwe':'津巴布韦'
+			};
+
+			option = {
+				tooltip: {
+					trigger: 'item',
+					formatter: '{b}'
+				},
+				geo: [
+					{
+						name: '世界地图',
+						type: 'map',
+						map: 'world',
+						roam: true,
+						selectedMode : 'single',
+						label:{
+							normal: {
+								show:false,
+								formatter: function (params) {
+									return nameMap[params.name];
+								}
+							},
+							emphasis: {
+								label:{
+									show:true
+								}
+							}
+						}
+					}
+				],
+				series: []
+			};
+			worldMap.setOption(option);
+
+
+
+
+
+			var main = document.getElementById('main');
+			var vip = document.getElementById('vip');
+			var order = document.getElementById('order');
+			var ranges = document.getElementById('range');
+			var resizeWorldMapContainer = function() {
+				main.style.width = $('#echart').width() + 'px';
+				main.style.height = '300px';
+				vip.style.width = $('#echart').width() + 'px';
+				vip.style.height = '300px';
+			};
+
+			resizeWorldMapContainer();
+			// 基于准备好的dom，初始化echarts实例
+			var myarr = '<%=accountSumStatistical.myarr%>';
+			var myday = '<%=accountSumStatistical.myday%>';
+			var mybrr = '<%=accountSumStatistical.mybrr%>';
+			var zongjine = '<%=zongjine%>';
+			var dingdanshu = '<%=dingdanshu%>';
+			var shanghuming = '<%=shanghuming%>';
+			var jineFengbu = '<%=jineFengbu%>';
+			var jinefb = jineFengbu.split(',');
+			//判断是否有数据
+			var shanghm=[];
+			if (shanghuming == ''||shanghuming == null||shanghuming == '0'){
+				shanghm = ['今日暂无订单'];
+			}else {
+				shanghm = shanghuming.split(',');
+			}
+			var zongje = zongjine.split(',');
+			var dingds = dingdanshu.split(',');
+
+			var accout = myarr.split(',');
+			var bccout = mybrr.split(',');
+			myday = myday.split(',');
+			
+			//总金额折线图
+			var myChart = echarts.init(main);
+			var option = {
+				tooltip: {},
+				legend: {
+					data: ['总金额'],
+					height: main.style.height,
+					width: main.style.width
+				},
+				xAxis: {
+					data: myday
+				},
+				yAxis: {},
+				series: [{
+					name: '总金额',
+					type: 'line',
+					data: accout
+				}]
+			};
+			myChart.setOption(option);
+			
+			
+			var myChart1 = echarts.init(vip);
+			var option1 = {
+				tooltip: {},
+				legend: {
+					data: ['新增人数'],
+					height: main.style.height,
+					width: main.style.width
+				},
+				xAxis: {
+					data: myday
+				},
+				yAxis: {},
+				series: [{
+					name: '新增人数',
+					type: 'line',
+					data: bccout
+				}]
+			};
+			myChart1.setOption(option1);
+			
+			//订单分类折线图
+			var orderList = echarts.init(order,'walden');
+			option = {
+			    tooltip : {
+			        trigger: 'axis'
+			    },
+			    calculable : true,
+			    legend: {
+			        data:['订单数','金额']
+			    },
+			    xAxis : [
+			        {
+			            type : 'category',
+			            data : shanghm
+			        }
+			    ],
+			    yAxis : [
+			        {
+			            type : 'value',
+			            name : '订单数',
+			            axisLabel : {
+			                formatter: '{value} 笔'
+			            }
+			        },
+			        {
+			            type : 'value',
+			            name : '金额',
+			            axisLabel : {
+			                formatter: '{value} 元'
+			            }
+			        }
+			    ],
+			    series : [
+			
+			        {
+			            name:'订单数',
+			            type:'bar',
+			            data:dingds
+			        },
+			        {
+			            name:'金额',
+			            type:'bar',
+			            yAxisIndex: 1,
+			            data:zongje,
+			            markPoint : {
+			                data : [
+			                    {type : 'max', name: '最大值'},
+			                    {type : 'min', name: '最小值'}
+			                ]
+			            },
+			            markLine : {
+			                data : [
+			                    {type : 'average', name: '平均值'}
+			                ]
+			            }
+			        }
+			    ]
+			};
+			orderList.setOption(option);
+			
+			//订单金额分布图
+			var ranges = echarts.init(ranges, 'wonderland');
+			option = {
+			    tooltip : {
+			        trigger: 'axis'
+			    },
+			    legend: {
+			        data:['订单数']
+			    },
+			    toolbox: {
+			        show : true,
+			        feature : {
+			            mark : {show: true},
+			            dataView : {show: true, readOnly: false},
+			            magicType : {show: true, type: ['line', 'bar']},
+			            restore : {show: true},
+			            saveAsImage : {show: true}
+			        }
+			    },
+			    calculable : true,
+			    xAxis : [
+			        {
+			            type : 'category',
+			            data : ['0-100','\n101-500','501-1000','\n1001-2000','2001-5000','\n大于5000']
+			        }
+			    ],
+			    yAxis : [
+			        {
+			            type : 'value',
+			            name : '订单数',
+			            axisLabel : {
+			                formatter: '{value} 笔'
+			            }
+			        }
+			    ],
+			    series : [
+			        {
+			            name:'订单数',
+			            type:'bar',
+			            data:jinefb,
+			            markPoint : {
+			                data : [
+			                    {type : 'max', name: '最大值'},
+			                    {type : 'min', name: '最小值'}
+			                ]
+			            },
+			            markLine : {
+			                data : [
+			                    {type : 'average', name: '平均值'}
+			                ]
+			            }
+			        }
+			    ]
+			};
+			ranges.setOption(option);
+			
+			window.onresize = function() {
+				resizeWorldMapContainer();
+				myChart.resize();
+				//orderList.resize();
+			};
+			$.widget.bridge('uibutton', $.ui.button);
+		</script>
+		<!--dashboard：基础设置-->
+		<script src="../../public/admin/js/dashboard.js" type="text/javascript" charset="utf-8"></script>
+		<!--<script src="../../public/admin/js/daterangepicker.js" type="text/javascript" charset="utf-8"></script>-->
+		<!--knob：风格圆盘-->
+		<script src="../../public/admin/js/jquery.knob.js" type="text/javascript" charset="utf-8"></script>
+		<!--sparkline：走势图-->
+		<!--<script src="../../public/admin/js/jquery.sparkline.min.js" type="text/javascript" charset="utf-8"></script>-->
+		<!--slimscroll：滚动条-->
+		<script src="../../public/admin/js/jquery.slimscroll.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../public/admin/js/app.min.js" type="text/javascript" charset="utf-8"></script>
+		<!--datepicker：日期-->
+		<!--<script src="../../public/admin/js/bootstrap-datepicker.js" type="text/javascript" charset="utf-8"></script>-->
+	</body>
+
+</html>

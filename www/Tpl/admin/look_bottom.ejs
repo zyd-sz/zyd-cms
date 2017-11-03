@@ -1,0 +1,122 @@
+		<style type="text/css">
+			.search-box span{font-size: 16px;}
+		</style>
+		</tbody>
+		</table>
+		</div>
+		</td>
+		</tr>
+		</table>
+		</div>
+		</div>
+		<div class="ajax-loading"></div>
+	</body>
+<script type="text/javascript">
+jQuery(function($){
+	updateBodyDivHeight();
+	$(window).resize(function(){
+		updateBodyDivHeight();
+	});
+});
+
+function updateBodyDivHeight()
+{
+	jQuery(".body-table-div").height(jQuery(".fanwe-body").height() - 36);
+	if(jQuery(".body-table-div").get(0).scrollHeight > jQuery(".body-table-div").height())
+	{
+		var width = jQuery(".body-table-div").width() - 16;
+		jQuery(".body-table-div > *").each(function(){
+			if(!$(this).hasClass('ajax-loading'))
+			{
+				$(this).width(width)	
+			}
+		});
+	}
+}
+
+
+
+//获取当前页面的，然后用
+//修改序号显示
+var htmls = (window.location.href).split('Tpl/')[1].split('/')[1].split('.')[0];
+$('#checkList th').click(function() {
+	var index = $(this).index();
+	if(index != 0){
+	//选择项
+	var content = $('.search-box').text();
+	if(content == ''){
+		$('.search-box').append(
+			'<span>记住选择</span>'
+		);
+	}
+	//隐藏一列		
+	
+	$(this).hide();
+	$('#checkList tr').find('td:eq(' + index + ')').hide();
+	  rember.push(index);
+	localStorage.setItem(htmls, rember);
+	//显示点击框
+	$('.search-box').css({'height':'40px','line-height':'40px'})
+	
+	//记住当前选择
+	var itemName = $.trim($(this).text());
+	$('.search-box').append(
+		'<span id="itemShow' + index + '" onclick="itemShow(' + index + ')">' + itemName + '</span>'
+	);		
+	}
+})
+
+function itemShow(a) {
+
+	//显示一列
+	$('#checkList tr').find('th:eq(' + a + ')').show();
+	$('#checkList tr').find('td:eq(' + a + ')').show();
+	
+	//删除
+	$('.search-box').find("#itemShow" + a).remove();
+	
+	//取消记住选择显示
+	if($('.search-box').children('span').length == 1){
+		$('.search-box').find("span").remove();
+		$('.search-box').css({'height':'0px','line-height':'0px'})
+	}
+	
+	 rembers =localStorage.getItem(htmls);
+	var arrasy = rembers.split(',');
+	for(var i=0;i<arrasy.length;i++){
+		if(arrasy[i]== a){
+			arrasy.splice(i,1);
+			break;
+		}
+	}
+	localStorage.setItem(htmls,arrasy);
+}
+
+
+if(localStorage.getItem(htmls)!= null && localStorage.getItem(htmls) != undefined && localStorage.getItem(htmls) != '') {
+	var bbc= localStorage.getItem(htmls);
+	var arrasy = bbc.split(',');
+	rember = arrasy;
+			$('.search-box').append(
+			'<span>记住选择</span>'
+		);
+		
+		for(var i=0;i<arrasy.length;i++) {
+			$('#checkList tr').find('td:eq(' + arrasy[i] + ')').hide();
+			$('#checkList tr').find('th:eq(' + arrasy[i] + ')').hide();
+			var itemname = $.trim($('#checkList tr').find('th:eq(' + arrasy[i] + ')').text());
+          if(itemname != '' && itemname != undefined && itemname != null){
+			$('.search-box').append(
+				'<span id="itemShow' + arrasy[i] + '" onclick="itemShow(' + arrasy[i] + ')">' + itemname + '</span>'
+			);		
+          }
+		
+		}
+}else{
+	var rember=[];
+}
+
+//var rember=[];
+</script>
+
+</html>

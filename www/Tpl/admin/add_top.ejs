@@ -1,0 +1,9 @@
+<% include header.ejs %>
+<table class="body-table" cellpadding="0" cellspacing="1" border="0" style="background-color: #fff;">
+	<tr>
+		<td class="body-table-td">
+			<div class="body-table-div">
+				<form action="/Tpl/admin/form.xhtml" method="post" onsubmit="return formsu(this)" target="iframe">
+					<input name="_m" type="hidden" value="<%= _m%>" />
+					<input name="_n" type="hidden" value="<%= _n%>" />
+					<table cellpadding="4" cellspacing="0" border="0" class="table-form">

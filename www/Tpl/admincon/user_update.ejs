@@ -1,0 +1,108 @@
+﻿<% include ../admin/add_top.ejs %>
+<tr id="_t_id">
+	<th width="150">id</th>
+	<td>
+		<input type="text" ReadOnly="true" class="textinput" id="id" name="id" value="<% if(r.id){%><%=r.id%><% }else{ %><% }%>" style="width:200px" /></td>
+</tr>
+<tr id="_t_姓名">
+	<th>姓名</th>
+	<td><input type="text" class="textinput requireinput " id="姓名" name="姓名" value="<% if(r.姓名){%><%=r.姓名%><% }else{ %><% }%>" style="width:200px" /></td>
+</tr>
+<tr id="_t_登录名">
+	<th>登录名</th>
+	<td><input type="text" class="textinput requireinput " onclick="shuru3(this);" onKeyUp="shuru3(this);" id="登录名" name="登录名" value="<% if(r.登录名){%><%=r.登录名%><% }else{ %><% }%>" style="width:200px" /></td>
+</tr>
+<tr id="_t_新密码">
+	<th>密码</th>
+	<td><input type="password" class="textinput requireinput " id="新密码" name="新密码" value="<% if(r.新密码){%><%=r.新密码%><% }else{ %><% }%>" style="width:200px" /></td>
+</tr>
+<tr id="_t_性别">
+	<th>性别</th>
+	<td><input name="性别" class="radio_性别" type="radio" value="男" />&nbsp;男<input name="性别" class="radio_性别" type="radio" value="女" />&nbsp;女
+		<% if(r.性别){%>
+		<script>
+			$(".radio_性别[value='<%=r.性别%>']").attr("checked", true);
+		</script>
+		<% }else { %>
+		<script>
+			$(".radio_性别[value='男']").attr("checked", true);
+		</script>
+		<% } %>
+	</td>
+</tr>
+<tr id="_t_权限组">
+	<th>角色身份</th>
+	<td>
+		<select name="权限列表" id="quanxian" style="width: 206px;height: 24px;">
+			<% 权限列表.forEach(function(item){ %>
+			<option value="<%= item.id+','+item.名称 %>">
+				<%= item.名称 %>
+			</option>
+			<% }) %>
+		</select>
+		<input type="hidden" name="权限组" id="权限组" value="" />
+		<script type="text/javascript">
+			<% if(r.id){ %>
+			$("#quanxian option[value='<%= r.权限id+','+r.权限组%>']").attr("selected", true);
+			<% } %>
+			$('#quanxian').change(function() {
+				var powel = $('#quanxian').val();
+				var p1 = powel.split(',')[0];
+				var p2 = powel.split(',')[1];
+				$('#权限组').val(p2);
+				$('#权限id').val(p1);
+			})
+			$(function() {
+				var powel = $('#quanxian').val();
+				var p1 = powel.split(',')[0];
+				var p2 = powel.split(',')[1];
+				$('#权限组').val(p2);
+				$('#权限id').val(p1);
+			})
+		</script>
+	</td>
+</tr>
+<tr id="_t_权限id">
+	<th>身份id</th>
+	<td><input type="text" ReadOnly="true" class="textinput" id="权限id" name="权限id" value="<% if(r.权限id){%><%=r.权限id%><% }else{ %>0<% }%>" style="width:200px" /></td>
+</tr>
+<tr id="_t_联系方式">
+	<th>联系方式</th>
+	<td><input type="text" class="textinput requireinput " id="联系方式" name="联系方式" value="<% if(r.联系方式){%><%=r.联系方式%><% }else{ %><% }%>" style="width:200px" /></td>
+</tr>
+<tr id="_t_email">
+	<th>email</th>
+	<td><input type="text" class="textinput" id="email" name="email" value="<% if(r.email){%><%=r.email%><% }else{ %><% }%>" style="width:200px" /></td>
+</tr>
+<tr id="_t_随机码">
+	<th>随机码</th>
+	<td><input type="text" ReadOnly="true" class="textinput" id="随机码" name="随机码" value="<% if(r.随机码){%><%=r.随机码%><% }else{ %><% }%>" style="width:200px" /></td>
+</tr>
+<tr id="_t_状态">
+	<th>状态</th>
+	<td>
+		<select name="状态" id="状态">
+			<option value="正常">正常</option>
+			<option value="停用">停用</option>
+		</select>
+		<% if(r.状态){%>
+		<script>
+			$("#状态 option[value='<%=r.状态%>']").attr("selected", true);
+		</script>
+		<% } %>
+	</td>
+</tr>
+<tr id="_t_录入人">
+	<th>录入人</th>
+	<td><input type="text" ReadOnly="true" class="textinput" id="录入人" name="录入人" value="<% if(r.录入人){%><%=r.录入人%><% }else{ %><%=session.user_name%><% }%>" style="width:200px" /></td>
+</tr>
+<tr id="_t_录入时间">
+	<th>录入时间</th>
+	<td><input type="text" ReadOnly="true" class="textinput" id="录入时间" name="录入时间" value="<% if(r.录入时间){%><%=r.录入时间%><% }else{ %><%=date%><% }%>" style="width:200px" /></td>
+</tr>
+<tr id="_t_备注">
+	<th>备注</th>
+	<td><textarea class="textinput" name="备注" id="备注" style="width:390px; height:100px;"><% if(r.备注){%><%=r.备注%><% }else{ %><% }%></textarea></td>
+</tr>
+
+<% include ../admin/add_bottom.ejs %>
